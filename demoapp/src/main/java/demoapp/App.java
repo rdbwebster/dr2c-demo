@@ -10,6 +10,7 @@ import demoapp.model.VMInfo;
 import demoapp.model.Vdc;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -96,8 +97,8 @@ public class App {
 	
     private static final CopyOnWriteArrayList<DemoTask> demoTaskList = new CopyOnWriteArrayList<>();
 	
-    static final String LOG_PROPERTIES_FILE = "./target/classes/demoapp/log4j.properties";
-    static final String DEMO_PROPERTIES_FILE = "./target/classes/demoapp/demo.properties";
+    static final String LOG_PROPERTIES_FILE  = "log4j.properties";
+    static final String DEMO_PROPERTIES_FILE = "demo.properties";
     
     final static Logger logger = LoggerFactory.getLogger(App.class);
     
@@ -695,11 +696,12 @@ public class App {
     {
       Properties logProperties = new Properties();
    
-      try
+      try (InputStream stream = App.class.getResourceAsStream(LOG_PROPERTIES_FILE))
+        
       {
         // load our log4j properties / configuration file
-        logProperties.load(new FileInputStream(LOG_PROPERTIES_FILE));
-        PropertyConfigurator.configure(logProperties);
+   //     logProperties.load(new FileInputStream(LOG_PROPERTIES_FILE));
+        PropertyConfigurator.configure(stream);
         logger.info("Logging initialized.");
       }
       catch(IOException e)
@@ -712,18 +714,24 @@ public class App {
     private static void loadDemoProperties()
     {
     	demoProperties = new Properties();
+    	
    
-      try
-      {
-        // load our log4j properties / configuration file
-        demoProperties.load(new FileInputStream(DEMO_PROPERTIES_FILE));
+      try (InputStream stream = App.class.getResourceAsStream(DEMO_PROPERTIES_FILE))
+      {	    
+    	    
+        // Changed to load from classpath since file load awkward when packaged as jar
+        //   demoProperties.load(new FileInputStream(DEMO_PROPERTIES_FILE));
+    	 
+        demoProperties.load(stream);
         logger.info("Demo properties read.");
       }
       catch(IOException e)
       {
+    	  // try-with-resources above closes stream
     	  logger.error("Error loading demo.properties ", e );
-        throw new RuntimeException("Unable to load demo property file " + DEMO_PROPERTIES_FILE);
+          throw new RuntimeException("Unable to load demo property file " + DEMO_PROPERTIES_FILE);
       }
+    
     }
     
 	public static CopyOnWriteArrayList<DemoTask> getDemoTaskQueue() {
