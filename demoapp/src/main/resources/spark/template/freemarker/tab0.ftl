@@ -66,7 +66,7 @@
     $( "#progressbarcpu" ).progressbar({
       value: 37,
       max:100
-    });
+    }); 
   });
   </script>
   

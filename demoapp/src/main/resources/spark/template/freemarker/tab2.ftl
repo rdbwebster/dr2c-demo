@@ -129,6 +129,6 @@
 				   </div>    
 			    </li>
 			    
-	  <!-- tabbed page handlers -->
+	  <!-- tabbed page handlers 
       <script src="./js/tabbedpage.js"></script>
- 
+ -->

@@ -1,8 +1,6 @@
 package demoapp;
 
 import static spark.Spark.*;
-
-import demoapp.clients.SDKClient;
 import demoapp.model.NavBean;
 import demoapp.model.Organization;
 import demoapp.model.ReferenceType;
@@ -10,60 +8,96 @@ import demoapp.model.ReplicationGroup;
 import demoapp.model.Task;
 import demoapp.model.VMInfo;
 import demoapp.model.Vdc;
-import demoapp.test.ApacheHttpRest;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Level;
-
 import spark.ModelAndView;
-import spark.QueryParamsMap;
-import spark.Route;
 import spark.Session;
 import spark.Request;
-import spark.Response;
 import spark.template.freemarker.FreeMarkerEngine;
-import static spark.Spark.get;
-import spark.template.velocity.VelocityTemplateEngine;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.vmware.vcloud.sdk.VcloudClient;
-
 import org.apache.log4j.PropertyConfigurator;
-import org.eclipse.jetty.websocket.api.*;
 
-// https://github.com/jonmiles/bootstrap-treeview
+
+/*
+ * This is the main for the dr2c demo UI application
+ * 
+ * Build Setup
+ * -----------
+ * 
+ * Maven must be installed on the build workstation.
+ * Note: Most libraries are available in the maven public repository and will be resolved for the build,
+ * but two libs for the VMWare sdk client are not in the public repo.
+ * rest-api-schemas-8.10.0.jar and 	vcloud-java-sdk-8.10.0.jar
+ * These libs must be downloaded from vmware and installed in the local workstation maven repository.
+ * See the pom.xml file for details including sample commands to install the files in the local repository.
+ * Once the files are installed in the local repo, run the command ->      mvn install
+ * From the folder containing the pom.xml To resolve the dependencies
+ * 
+ * Building the App
+ * ----------------
+ * Build the application using the following steps:
+ * In a terminal window change to the source directory containing the pom.xml file
+ * Then run the following command.
+
+ * 
+ * $ mvn package
+ * 
+
+ * 
+ * Running the App
+ * -----------------
+ * Once the build is complete, a demoApp-10.jar is created in the target folder.
+ * Run the application using the following command, also from the folder containing the pom.xml file
+ * 
+ * java -cp ./target -jar ./target/demoApp-1.0.jar
+ * 
+ * The UI application should then be available on http://localhost:4567
+ * 
+ * App configuration
+ * ------------------
+ * The demo.properties file and log4j.properties files are used to configure the application settings and logging levels.
+ * 
+ * A default url, username and password can be set in the demo.properties file and will be read at runtime and appear on the login screen.
+ * 
+ * A choice of http clients can also be specified in the demo.properties file.
+ * The vCloud Director SDK Java Client or the Apache Http client are the current choices.
+ * The vCloud Director SDK Java Client does not contain API extensions needed for accessing DR2C extensions on vCD,
+ * the Apache client is therefore recommended.
+ * 
+ * Logging is managed by slf4j and log4j.
+ * Log levels can be changed by modifying log levels in the log4j.properties file.
+ * A restart of the application is required to activate changes.
+ * Each class has its own logger so log granularity can be set from the total app all the way down to individual classes.
+ * The default configuration outputs log data to the stdout console
+ * 
+ */
 
 public class App {
 	
 	public static String sessionId;
 	
-	// make this of type <String, Client>
 	static ConcurrentHashMap<String, VcdClient> vClientMap = new ConcurrentHashMap<String, VcdClient>();
 	
 	static ConcurrentHashMap<String, org.eclipse.jetty.websocket.api.Session> wsSessionMap = new ConcurrentHashMap<>();
 	
     private static final CopyOnWriteArrayList<DemoTask> demoTaskList = new CopyOnWriteArrayList<>();
 	
-    static final String LOG_PROPERTIES_FILE = "/Users/bwebster/apps/demo_dr2c/demoapp/target/classes/demoapp/log4j.properties";
-    static final String DEMO_PROPERTIES_FILE = "/Users/bwebster/apps/demo_dr2c/demoapp/target/classes/demoapp/demo.properties";
+    static final String LOG_PROPERTIES_FILE = "./target/classes/demoapp/log4j.properties";
+    static final String DEMO_PROPERTIES_FILE = "./target/classes/demoapp/demo.properties";
     
     final static Logger logger = LoggerFactory.getLogger(App.class);
     
@@ -71,31 +105,35 @@ public class App {
     
     static Class<VcdClient> vcdClientClass= null;
     
+    static String vcd_url ="";
+    static String vcd_username = "";
+    static String vcd_password = "";
+    
+    
+    
     public static void main(String[] args) {
-    	 
     	
     	int maxThreads = 8;
     	int minThreads = 2;
     	int timeOutMillis = 30000;
     	threadPool(maxThreads, minThreads, timeOutMillis);
 
-
-
     	initializeLogger();
     	
     	System.out.println("Logger Level " + logger.ROOT_LOGGER_NAME + " Debug " + logger.isDebugEnabled());
     	staticFileLocation("/public");
-      // externalStaticFileLocation("/Users/bwebster/Downloads/vcair"); // Static files
-      // init();
     	
     	logger.info("App Started");
     	
         // Load the specified client
         
-        
         loadDemoProperties();
         
         String clientName = demoProperties.getProperty("client");
+        vcd_url =  demoProperties.getProperty("vcd_url");
+        vcd_username =  demoProperties.getProperty("vcd_username");
+        vcd_password =  demoProperties.getProperty("vcd_password");
+        
         try {
         
         	vcdClientClass = (Class<VcdClient>) Class.forName(clientName);
@@ -109,8 +147,6 @@ public class App {
     
     	
         FreeMarkerEngine engine = new FreeMarkerEngine();
-        
-        VelocityTemplateEngine eng = new VelocityTemplateEngine();
         
         String layout = "spark/template/velocity/layout.vtl";
         
@@ -162,10 +198,10 @@ public class App {
             HashMap model = new HashMap();   // model for login, no session yet
        
       //      model.put("template", "spark/template/velocity/login.vtl");
-           model.put("vcloudurl", "https://10.134.3.58");
+           model.put("vcloudurl", vcd_url);
         //    model.put("vcloudurl", "http://localhost:9000");
-            model.put("username", "administrator@System");
-            model.put("password", "vmware123!");
+            model.put("username", vcd_username);
+            model.put("password", vcd_password);
             return new ModelAndView(model, "login.ftl");
            
           },  engine);
@@ -191,9 +227,9 @@ public class App {
         	 
         	 
         	 HashMap model = new HashMap();
-             model.put("vcloudurl", "http://localhost:9000");
-               model.put("username", "administrator@System");
-               model.put("password", "vmware123!");
+             model.put("vcloudurl", vcd_url);
+               model.put("username", vcd_username);
+               model.put("password", vcd_password);
                return new ModelAndView(model, "login.ftl");
                   
                  },  engine);

@@ -9,7 +9,7 @@
   <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>  -->   
       
   <!--     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">  -->   
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>  
  
     <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">   
@@ -20,10 +20,12 @@
  	<link rel="stylesheet" type="text/css" href="./css/style.css" />
  	
  	<!--  tabs -->
- 	   <link  rel="stylesheet" href="./css/tabs.css">
+ 	   <link  rel="stylesheet" href="./css/tabs.css"> 
  	   
  	 <!- tab menu -->
  	   	   <link  rel="stylesheet" href="./css/tabmenu.css">
+ 	   	   
+ <script src="./js/tabbedpage.js"></script>
  	   
    <!-- menu -->
    <link  rel="stylesheet" href="./css/menu.css">
