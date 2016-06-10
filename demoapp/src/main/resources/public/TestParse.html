@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WebsSockets</title>
+   
+</head>
+<body>
+    <div id="chatControls">
+        <input id="msg" placeholder="Type your message">
+        <button id="send">Send</button>
+    </div>
+</body>
+
+<script src="./js/jquery.js"></script>
+
+<script>
+$(document).ready(function(){                     
+    $(function(){
+       $("#send").click(function(e){
+
+    	   
+
+
+    	 //Get
+    //	 var bla = $('#txt_name').val();
+
+    	 //Set
+   // 	 $('#txt_name').val('bla');
+
+
+	    console.log("msg: " +  $("#msg").val())
+		// {"vmhref":"https://10.134.3.58/api/vApp/vm-98b0746b-2266-4ba9-b973-c24f54eeaca0", "status":"success",  "state":"SUSPENDED" }
+	     var parsedJson = $.parseJSON($("#msg").val());
+		 
+		 console.log("vmhref: " + parsedJson.vmhref);
+		 console.log("status: " + parsedJson.status);
+		 console.log("state: " + parsedJson.state);
+	 
+          });
+       });
+   });
+
+</script>

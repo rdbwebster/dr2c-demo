@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Task xmlns="http://www.vmware.com/vcloud/v1.5" cancelRequested="false" expiryTime="2016-08-30T03:14:18.458+08:00" operation="Starting Virtual Machine Ubuntu12.04(98b0746b-2266-4ba9-b973-c24f54eeaca0)" operationName="vappDeploy" serviceNamespace="com.vmware.vcloud" startTime="2016-06-01T03:14:18.458+08:00" status="queued" name="task" id="urn:vcloud:task:b217c443-26cc-40be-ad99-9668ebc2c056" href="https://10.134.3.58/api/task/b217c443-26cc-40be-ad99-9668ebc2c056" type="application/vnd.vmware.vcloud.task+xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.vmware.com/vcloud/v1.5 http://10.134.3.58/api/v1.5/schema/master.xsd">
+<Owner href="https://10.134.3.58/api/vApp/vm-98b0746b-2266-4ba9-b973-c24f54eeaca0" name="Ubuntu12.04" type="application/vnd.vmware.vcloud.vm+xml"/>
+<User href="https://10.134.3.58/api/admin/user/378a3d25-b236-4869-8e43-f6baf10013a3" name="system" type="application/vnd.vmware.admin.user+xml"/>
+<Organization href="https://10.134.3.58/api/org/9517e566-3119-4fb5-b6c4-466960a60c75" name="CustomerA" type="application/vnd.vmware.vcloud.org+xml"/>
+<Details/>
+</Task>

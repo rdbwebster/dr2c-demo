@@ -1,0 +1,22 @@
+{
+  "name": "public",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {},
+  "authors": [
+    "Bob Webster <rdbwebster@gmail.com>"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "col-resizable": "*"
+  }
+}

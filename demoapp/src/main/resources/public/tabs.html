@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DR2C Demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+   
+ 	<link rel="stylesheet" type="text/css" href="./css/style.css" />
+ 	
+ 	<!--  tabs -->
+ 	   <link  rel="stylesheet" href="./css/tabs.css">
+ 	   
+   <!-- menu -->
+   <link  rel="stylesheet" href="./css/menu.css">
+   <script src="./js/menu.js"></script>
+   
+   
+  </head>
+  
+  
+  <body>
+
+
+	
+<div id="content">
+		
+		
+		<div id="main-content">
+		
+	<p> fooo </p>
+	
+			<ul class="tabs">
+			    <li>
+			        <input type="radio" name="tabs" id="tab1" checked />
+			        
+			        <label for="tab1">Description</label>
+			        <div id="tab-content1" class="tab-content">
+			        
+				        <table class="table table-striped">
+							    <thead>
+							      <tr>
+							        <th>Status</th>
+							        <th>Name</th>
+							        <th>Recovery Status</th>
+							      </tr>
+							    </thead>
+							    <tbody>
+							  
+							      <tr>
+							        <td>Status</td>
+							        <td>${vmbean.name}</td>
+							        <td>john@example.com</td>
+							      </tr>
+							   
+							
+							    </tbody>
+					   </table> 
+				   </div>    
+			    </li>
+			  
+			    <li>
+			        <input type="radio" name="tabs" id="tab2" />
+			        <label for="tab2">Specification</label>
+			        <div id="tab-content2" class="tab-content">
+			            <table class="table table-striped">
+						    <thead>
+						      <tr>
+						        <th>Status</th>
+						        <th>Name</th>
+						        <th>Recovery Status</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						    
+						    </tbody>
+					   </table>        
+				  </div>
+			    </li>
+			</ul>
+		
+</div>
+</div>
+	
+
+  </body>
+</html>

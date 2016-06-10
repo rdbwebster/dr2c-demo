@@ -1,0 +1,261 @@
+
+/* addition css from praxis-all-debug.css */
+
+
+/* line 1, ../../../../common-ui/src/themes/praxis/praxis-4.2/my-workspace/ext/packages/ext-theme-neutral/sass/src/LoadMask.scss */
+.x-mask {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
+  background: white;
+  cursor: default;
+}
+
+/* line 9, ../../../../common-ui/src/themes/praxis/praxis-4.2/my-workspace/ext/packages/ext-theme-neutral/sass/src/LoadMask.scss */
+.x-mask-msg {
+  padding: 8px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  background: #e5e5e5;
+}
+
+/* line 27, ../../../../common-ui/src/themes/praxis/praxis-4.2/my-workspace/ext/packages/ext-theme-neutral/sass/src/LoadMask.scss */
+.x-mask-msg-inner {
+  padding: 0;
+  background-color: transparent;
+  color: #666666;
+  font: normal 13px arial, verdana, sans-serif;
+}
+
+/* line 39, ../../../../common-ui/src/themes/praxis/praxis-4.2/my-workspace/ext/packages/ext-theme-neutral/sass/src/LoadMask.scss */
+.x-mask-msg-text {
+  padding: 21px 0 0;
+  background-image: url(images/loadmask/loading.gif);
+  background-repeat: no-repeat;
+  background-position: center 0;
+}
+
+
+
+/* end xmask */
+
+.x-btn {
+  display: inline-block;
+  position: relative;
+  /* zoom: 1; */
+  display: inline;
+  outline: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  vertical-align: middle;
+  text-decoration: none;
+}
+
+.x-toolbar .x-btn-toolbar {
+  border-width: 0;
+  background: none;
+  padding: 8px;
+}
+
+.x-btn-icon-el {
+    background-repeat: no-repeat;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+}
+
+
+/* line 119, ../../../../common-ui/src/themes/praxis/praxis-4.2/my-workspace/ext/packages/ext-theme-base/sass/src/Component.scss */
+.x-unselectable {
+  user-select: none;
+  -o-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+/* line 123, ../../../../common-ui/src/themes/praxis/praxis-4.2/my-workspace/ext/packages/ext-theme-base/sass/src/Component.scss */
+.x-selectable {
+  cursor: auto;
+  -moz-user-select: text;
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  -o-user-select: text;
+}
+
+.x-box-item {
+  position: absolute !important;
+  left: 0;
+  top: 0;
+}
+
+/* line 99, ../../../../common-ui/src/themes/praxis/praxis-4.2/my-workspace/ext/packages/ext-theme-neutral/sass/src/toolbar/Toolbar.scss */
+.x-toolbar-item {
+  margin: 0 8px 0 0;
+}
+
+/* line 114, ../../../../common-ui/src/themes/praxis/praxis-4.2/my-workspace/ext/packages/ext-theme-neutral/sass/src/toolbar/Toolbar.scss */
+.x-toolbar-text {
+  margin: 0 6px 0 4px;
+  color: #4c4c4c;
+  line-height: 16px;
+  font-family: arial, verdana, sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+/* line 18, ../../../../common-ui/src/themes/praxis/praxis-4.2/my-workspace/packages/praxis/sass/src/button/Button.scss */
+.x-btn-default-small, .x-btn-default-medium, .x-btn-default-large,
+.x-btn-default-toolbar-small, .x-btn-default-toolbar-medium, .x-btn-default-toolbar-large {
+  background-color: #d7dee2;
+  color: #586877;
+}
+
+/* end additional */
+
+/* additional from vchs-compute-ui-min.css */
+
+
+
+
+.vdc-loader-text {
+    margin-top: 5em;
+    padding-top: 1.5em;
+    text-align: center;
+    background: url('../images/loading.gif') top center no-repeat;
+}
+    
+/* end additional */
+
+.v-icon {
+	background-image:none;
+	background-repeat:no-repeat;
+	background-attachment:scroll;
+	background-position:center center;
+	background-color:transparent
+}
+.v-search-field .x-form-trigger {
+	background-color:transparent;
+	background-image:url(../img/icons/vmlist-sprite.png);
+	background-position:0 -256px;
+	background-repeat:no-repeat;
+	width:10px;
+	height:11px;
+	margin:7px auto 0;
+	text-align:center
+}
+.v-search-field .x-form-trigger-over {
+	background-position:0 -272px
+}
+/*
+.v-search-field input::-ms-clear {
+	display:none
+}
+
+.v-breadcrumbs-body {
+	margin:0;
+	padding:0;
+	-webkit-touch-callout:none;
+	-webkit-user-select:none;
+	-khtml-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none
+}
+*/
+.v-breadcrumb-item {
+	display:inline
+}
+.v-breadcrumb-item a {
+	cursor:pointer
+}
+.v-breadcrumb-inactive a {
+	cursor:default
+}
+.tabbuttons {
+	position:absolute;
+	top:.25em;
+	right:2em
+}
+.v-grid-status-column .v-icon {
+	display:block;
+	height:16px;
+	width:16px;
+	margin:5px 10px
+}
+.v-icon.v-icon-toolbar-create-vm,.v-icon.v-icon-toolbar-actions,.v-icon.v-icon-toolbar-refresh,.v-icon.v-icon-status-POWERED_ON,.v-icon.v-icon-status-POWERED_OFF,.v-icon.v-icon-status-SUSPENDED,.v-icon.v-icon-status-FAILED_CREATION,.v-icon.v-icon-status-EXPIRED,.v-icon.v-icon-action-power-on,.v-icon.v-icon-action-power-off,.v-icon.v-icon-action-suspend,.v-icon.v-icon-action-reset,.v-icon.v-icon-action-edit,.v-icon.v-icon-action-delete,.v-icon.v-icon-action-snapshot-create,.v-icon.v-icon-action-snapshot-revert,.v-icon.v-icon-action-snapshot-delete,.v-icon.v-icon-action-open-console {
+	background-image:url(./images/icons/vmlist-sprite.png)
+}
+.v-icon-toolbar-create-vm {
+	background-position:0 -224px
+}
+v-icon-toolbar-actions {
+	background-position:0 -240px
+}
+.v-icon-toolbar-refresh {
+	background-position:0 -96px
+}
+.v-icon-status-POWERED_ON {
+	background-position:0 -80px
+}
+.v-icon-status-POWERED_OFF {
+	background-position:0 -64px
+}
+.v-icon-status-SUSPENDED {
+	background-position:0 -112px
+}
+.v-icon-status-FAILED_CREATION {
+	background-position:0 -32px
+}
+.v-icon-status-UNRESOLVED {
+	background-image:url(./images/icons/16-loading.gif)
+}
+.v-icon-status-EXPIRED {
+	background-position:0 -16px
+}
+.v-icon-action-power-on {
+	background-position:0 -80px
+}
+.v-icon-action-power-off {
+	background-position:0 -64px
+}
+.v-icon-action-suspend {
+	background-position:0 -112px
+}
+.v-icon-action-reset {
+	background-position:0 -96px
+}
+.v-icon-action-edit {
+	background-position:0 -48px
+}
+.v-icon-action-delete {
+	background-position:0 -32px
+}
+.v-icon-action-snapshot-create {
+	background-position:0 -160px
+}
+.v-icon-action-snapshot-revert {
+	background-position:0 -176px
+}
+.v-icon-action-snapshot-delete {
+	background-position:0 -192px
+}
+.v-icon-action-open-console {
+	background-position:0 -208px
+}
+
+.v-icon.v-icon-action-manage {
+	background-image:url(./images/icons/vCloud-Director-16px.png)
+}
+/*
+.v-icon.v-icon-action-connect-internet {
+	background-image:url(./images/icons/vCA-Connect-Internet-16px.png)
+}
+*/

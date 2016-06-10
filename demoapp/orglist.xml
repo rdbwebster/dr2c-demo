@@ -1,0 +1,7 @@
+<OrgList xmlns="http://www.vmware.com/vcloud/v1.5" href="https://10.134.3.58/api/org/" type="application/vnd.vmware.vcloud.orgList+xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.vmware.com/vcloud/v1.5 http://10.134.3.58/api/v1.5/schema/master.xsd">
+    <Org href="https://10.134.3.58/api/org/23b466f4-bbe4-4f6e-8d15-f7e8458ef0c1" name="CustomerB" type="application/vnd.vmware.vcloud.org+xml"/>
+    <Org href="https://10.134.3.58/api/org/82480d7c-f3c8-47bb-89fb-a07776a25d05" name="Org1" type="application/vnd.vmware.vcloud.org+xml"/>
+    <Org href="https://10.134.3.58/api/org/9517e566-3119-4fb5-b6c4-466960a60c75" name="CustomerA" type="application/vnd.vmware.vcloud.org+xml"/>
+    <Org href="https://10.134.3.58/api/org/a93c9db9-7471-3192-8d09-a8f7eeda85f9" name="System" type="application/vnd.vmware.vcloud.org+xml"/>
+</OrgList>
+

@@ -1,0 +1,103 @@
+
+
+
+h1 {
+  font-weight: normal;
+  font-size: 40px;
+  font-weight: normal;
+  text-transform: uppercase;
+  float: left;
+  margin: 20px 0 100px 10px;
+}
+h1 span {
+  font-size: 14px;
+  display: block;
+  padding-left: 4px;
+}
+
+.tabs {
+   width: 92%;    /* tab page size */
+  float: none;
+  list-style: none;
+  position: relative;
+  margin: 0px 20px 0px 0px;   /* top right bottom left */
+  text-align: left;
+}
+.tabs li {
+  float: left;
+  display: block;
+}
+.tabs input[type="radio"] {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+.tabs label {
+  display: block;
+  padding: 16px 20px;
+  border-radius: 2px 2px 0 0;
+   border: 1px solid #7db9e8; /* tab label border */
+  font-family: arial, helvetica, verdana, sans-serif;
+  font-size: 13px;             /* tab label font size */
+  font-weight: 700;
+/*  text-transform: uppercase; */
+  background: #F0F3F5
+  cursor: pointer;
+  position: relative;
+  top: 0px;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.tabs label:hover {
+  background: #C0C0C0;
+}
+.tabs .tab-content {
+  z-index: 2;
+  display: none;
+  overflow: hidden;
+  width: 100%;
+  height: 550px;
+  font-size: 12px;   /* tab page font size, changing may expose bottom of status image sprites */
+  line-height: 25px;
+  padding: 25px;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  background: #F0F3F5   /* tab page background color */
+}
+.tabs [id^="tab"]:checked + label {
+  top: 0px;  /* margin at top of tabs if any */
+  padding-top: 16px;
+  background: #F0F3F5;
+  font-family: arial, helvetica, verdana, sans-serif;
+    
+}
+.tabs [id^="tab"]:checked ~ [id^="tab-content"] {
+  display: block;
+    border: 1px solid #7db9e8;   /* tab page */
+}
+
+p.link {
+  clear: both;
+  margin: 380px 0 0 15px;
+}
+p.link a {
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  color: #fff;
+  padding: 5px 10px;
+  margin: 0 5px;
+  background-color: #7DB9E8;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+
+}
+p.link a:hover {
+  background-color: #7DB9E8;
+}
+

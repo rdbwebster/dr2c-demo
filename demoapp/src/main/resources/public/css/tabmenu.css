@@ -1,0 +1,213 @@
+
+.tabmenudiv {
+    width:650px;
+}
+.tabmenu {
+    font-family:'Open Sans', sans-serif;
+    font-size:5px;   /* tab label font size */
+}
+.tabmenu ul ul {
+    display: none;
+}
+.tabmenu ul li:hover > ul {
+    display: block;
+}
+.tabmenu ul {
+  /*   background: lightgrey; */
+    margin: 0;
+    list-style: none;
+    position: relative;
+    padding: 0;
+ /*   border:3px solid #111312; 
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;*/
+}
+
+.darkClass 
+{
+     float: left;
+    padding-top: 5px;
+    padding-left: 15px;
+    padding-bottom: 5px;
+    border-bottom: 3px solid transparent;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;*/
+    filter:alpha(opacity=50); /* IE */
+    opacity: 0.5; /* Safari, Opera */
+    -moz-opacity:0.50; /* FireFox */
+    z-index: 20;
+
+}
+
+.tabmenu ul:after {
+    content:"";
+    clear: both;
+    display: block;
+}
+.tabmenu ul li {
+    float: left;
+    padding-top: 5px;
+    padding-left: 15px;
+    padding-bottom: 5px;
+    border-bottom: 3px solid transparent;
+}
+
+
+.tabmenu ul li:hover {
+    background: darkgrey;
+    border-bottom: 3px solid #fff;
+}
+.tabmenu ul li:hover a {
+    color: #fff;
+}
+
+
+
+.tabmenu ul li button {
+	
+     border:none; 
+    height: 16px;
+    line-height: 16px;
+    display: inline-block;
+    padding-left: 20px; /* To shift text off the background-image */
+    color: #3E789F;
+    background: url("./images/icons/vmlist-sprite.png") no-repeat; /* As all link share the same background-image */
+}
+.tabmenu ul ul {
+    background:  darkgrey;
+    padding: 0;
+    position: absolute;
+    top: 100%;
+}
+.tabmenu ul ul li {
+    float: none;
+    position: relative;
+}
+.tabmenu ul ul li a {
+	   font-size:10px;
+    padding: 10px;
+    color:#000;
+    display: block;
+}
+.tabmenu ul ul li a:hover {
+    background: #111312;
+    color: #fff;
+}
+.tabmenu ul ul ul {
+    position: absolute;
+    left: 100%;
+    top:0;
+    padding: 0;
+}
+.tabmenu ul ul ul li {
+    float: none;
+    border-top: 1px solid #6b727c;
+    border-bottom: 1px solid pink;
+    position: relative;
+}
+.tabmenu ul ul ul li a {
+    padding: 10px;
+    color: #fff;
+    display: block;
+}
+.tabmenu ul ul ul li a:hover {
+    background: #95CEF1;
+    color: darkgrey;
+}
+.tabmenu ul ul ul ul {
+    position: absolute;
+    left: 100%;
+    top:0;
+}
+.head {
+    width:500px;
+    height:200px;
+    background:#789;
+}
+.foot {
+    width:500px;
+    height:200px;
+    background:#123;
+}
+
+.tabmenu > ul > li > a {
+    border-right: 2px darkgrey;
+    display: block;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.tabmenu > ul > li:last-child > a {
+    border-right: 0;
+}
+
+
+
+
+.v-icon-status-SUSPENDED, .v-icon-toolbar-create-vm, .v-icon-toolbar-actions, v-icon-toolbar-refresh, .v-icon-status-POWERED_ON, .v-icon-status-POWERED_OFF, .v-icon-status-SUSPENDED, .v-icon-status-FAILED_CREATION, .v-icon-status-UNRESOLVED, .v-icon-status-EXPIRED,.v-icon.v-icon-action-power-on,.v-icon.v-icon-action-power-off,.v-icon.v-icon-action-suspend,.v-icon.v-icon-action-reset,.v-icon.v-icon-action-edit,.v-icon.v-icon-action-delete,.v-icon.v-icon-action-snapshot-create,.v-icon.v-icon-action-snapshot-revert,.v-icon.v-icon-action-snapshot-delete,.v.v-icon-action-open-console {
+	background-image:url(./images/icons/vmlist-sprite.png)
+}
+
+
+.v-icon-toolbar-create-vm {
+	background-position:0 -224px
+}
+.v-icon-toolbar-actions  {
+	background-position:0 -240px
+}
+.v-icon-toolbar-refresh  {
+	background-position:0 -96px
+}
+.v-icon-status-POWERED_ON  {
+	background-position:0 -80px
+}
+.v-icon-status-POWERED_OFF  {
+	background-position:0 -64px
+}
+.v-icon-status-SUSPENDED  {
+	background-position:0 -112px
+}
+.v-icon-status-FAILED_CREATION   {
+	background-position:0 -32px
+}
+.v-icon-status-UNRESOLVED   {
+	background-image:url(./images/icons/16-loading.gif)
+}
+.v-icon-status-EXPIRED   {
+	background-position:0 -16px
+}
+.tabmenu ul li.v-icon-action-power-on button {
+	background-position:0 -80px
+}
+.tabmenu ul li.v-icon-action-power-off button {
+	background-position:0 -64px
+}
+.tabmenu ul li.v-icon-action-suspend button {
+	background-position:0 -112px
+}
+.tabmenu ul li.v-icon-action-reset button {
+	background-position:0 -96px
+}
+.tabmenu ul li.v-icon-action-edit  button {
+	background-position:0 -48px
+}
+.tabmenu ul li.v-icon-action-delete button {
+	background-position:0 -32px
+}
+.tabmenu ul li.v-icon-action-snapshot-create button {
+	background-position:0 -160px
+}
+.tabmenu ul li.v-icon-action-snapshot-revert button {
+	background-position:0 -176px
+}
+.tabmenu ul li.v-icon-action-snapshot-delete button {
+	background-position:0 -192px
+}
+.tabmenu ul li.v-icon-action-open-console button {
+	background-position:0 -208px
+}
+
+
+
+	
+
+	}

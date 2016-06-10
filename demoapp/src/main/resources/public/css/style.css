@@ -1,0 +1,181 @@
+
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,300);
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+
+    
+body {
+
+	font-family: 'Open Sans', sans-serif;   /* adjusting this will impact table rows */
+    font-size: 10px; /*adjusting this changes default height of inline elements like span etc may cut off images in span */
+	
+	
+	color: #000000;
+    background: #4679B9;
+}
+
+h1 { font-size: 4.0em; }
+p, li { font-size: 1.1em; }
+
+.clear { clear: both; }
+
+
+#container {
+	background-color: #FFFFFF;
+    width: 99%;
+  /*  padding: 25px; */
+  /*  border: 25px solid navy; */
+    margin: 5px; 
+     display:block;
+   float: left;
+ /*   height:600px;  */
+}
+
+#header {
+	background: #FFFFFF;
+	padding: 5px 0 5px; 5px;
+	height:20px;
+	text-align: center;
+	
+	
+
+}
+
+#header p {
+		  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+
+#greyarea {
+	margin-top: 10px;  /* skip over header */
+	width: 99%;
+	height: 650px;
+}
+
+#content {
+	padding: 0px; 30px 0px 0;
+	}
+	#main-content {	
+	background: #D3D3F0;
+		margin-left: 220px;   <!-- distance from Nav -->
+		max-width: 600px;
+	}
+
+#sidebar {
+	background: #F0F3F5;
+	width: 200px;
+	height: 300px;
+	float: left;
+	padding: 0 0 0 0px;
+	margin-left: 5px;
+	/*
+	border-top: 1px solid #000000;
+	border-right: 1px solid #ff4b02;
+	border-bottom: 1px solid #ff4b02;
+	*/
+	border: 1px solid #7db9e8;
+	 height:650px;
+	}
+	#sidebar ul {
+		list-style: inside;
+	}
+
+
+
+
+
+
+.box {
+    margin: 0 auto;
+    width: 800px;
+}
+
+ul.menu-logout { 
+	float: right; 
+	color: white;
+	width:75px; 
+    height:15px; 
+    list-style: none;
+      padding-right: 5.5em;
+	}
+	
+ul.menu-logout > a { 
+  
+	width:250px; 
+    text-align: right;
+    font-size: 12px;
+	}
+
+.options {
+    width: 50px;
+    position: absolute;
+    right: 0px;
+}
+
+ul.menu li {
+	
+    display: inline;
+    padding: 1px 0px 2px 25px;   /* top right bottom left */
+    text-decoration: none;
+    border-radius: 4px 4px 0 0;
+    
+}
+
+
+
+span.checked
+{
+  background:url("./images/icons/checked.png")  no-repeat; 
+  font-size: 18px;
+ padding-left: 20px;
+}
+
+span.unchecked
+{
+  background:url(./images/icons/unchecked.png) no-repeat; 
+  font-size: 18px;
+   padding-left: 20px;
+}
+
+ 
+td.checkbox > a {
+/*  padding-left: 20px;  To shift text off the background-image */
+}
+
+
+a:link    { color: #ffffff; }  /* unvisited links */
+a:visited { color: #ffffff; }  /* visited links   */
+a:hover   { color: #eeeeee; }  /* user hovers     */
+a:active  { color: #ccc; }      /* active links    */
+
+
+
+/* block styles */
+
+.x-fit-item {
+    position: relative;
+}
+
+.loading-vm-lbl {
+    font-size: 18px;
+    color: grey;
+    padding-top: 5px;
+}
+
+.vdc-loader-text {
+    margin-top: 5em;
+    padding-top: 1.5em;
+    text-align: center;
+    background: url('../images/loading.gif') top center no-repeat;
+}
+
+p.spacer {
+line-height: 200% }

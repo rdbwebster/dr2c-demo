@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Vdc xmlns="http://www.vmware.com/vcloud/v1.5" xmlns:vmext="http://www.vmware.com/vcloud/extension/v1.5" status="1" name="HR" id="urn:vcloud:vdc:25faa17d-588e-42e1-af5b-190187f51e64" href="https://10.134.3.58/api/vdc/25faa17d-588e-42e1-af5b-190187f51e64" type="application/vnd.vmware.vcloud.vdc+xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.vmware.com/vcloud/v1.5 http://10.134.3.58/api/v1.5/schema/master.xsd http://www.vmware.com/vcloud/extension/v1.5 http://10.134.3.58/api/v1.5/schema/vmwextensions.xsd">
+    <VCloudExtension required="false">
+        <vmext:VimObjectRef>
+            <vmext:VimServerRef href="https://10.134.3.58/api/admin/extension/vimServer/882a25b0-e840-494f-8cf2-1b1214187a18" name="VC" type="application/vnd.vmware.admin.vmwvirtualcenter+xml"/>
+            <vmext:MoRef>resgroup-67</vmext:MoRef>
+            <vmext:VimObjectType>RESOURCE_POOL</vmext:VimObjectType>
+        </vmext:VimObjectRef>
+    </VCloudExtension>
+    <Link rel="up" href="https://10.134.3.58/api/org/9517e566-3119-4fb5-b6c4-466960a60c75" type="application/vnd.vmware.vcloud.org+xml"/>
+    <Link rel="down" href="https://10.134.3.58/api/vdc/25faa17d-588e-42e1-af5b-190187f51e64/metadata" type="application/vnd.vmware.vcloud.metadata+xml"/>
+    <Link rel="edit" href="https://10.134.3.58/api/vdc/25faa17d-588e-42e1-af5b-190187f51e64" type="application/vnd.vmware.vcloud.vdc+xml"/>
+    <Link rel="remove" href="https://10.134.3.58/api/vdc/25faa17d-588e-42e1-af5b-190187f51e64"/>
+    <Link rel="add" href="https://10.134.3.58/api/vdc/25faa17d-588e-42e1-af5b-190187f51e64/action/uploadVAppTemplate" type="application/vnd.vmware.vcloud.uploadVAppTemplateParams+xml"/>
+    <Link rel="add" href="https://10.134.3.58/api/vdc/25faa17d-588e-42e1-af5b-190187f51e64/media" type="application/vnd.vmware.vcloud.media+xml"/>
+    <Link rel="add" href="https://10.134.3.58/api/vdc/25faa17d-588e-42e1-af5b-190187f51e64/action/instantiateOvf" type="application/vnd.vmware.vcloud.instantiateOvfParams+xml"/>
+    <Link rel="add" href="https://10.134.3.58/api/vdc/25faa17d-588e-42e1-af5b-190187f51e64/action/instantiateVAppTemplate" type="application/vnd.vmware.vcloud.instantiateVAppTemplateParams+xml"/>
+    <Link rel="add" href="https://10.134.3.58/api/vdc/25faa17d-588e-42e1-af5b-190187f51e64/action/cloneVApp" type="application/vnd.vmware.vcloud.cloneVAppParams+xml"/>
+    <Link rel="add" href="https://10.134.3.58/api/vdc/25faa17d-588e-42e1-af5b-190187f51e64/action/cloneVAppTemplate" type="application/vnd.vmware.vcloud.cloneVAppTemplateParams+xml"/>
+    <Link rel="add" href="https://10.134.3.58/api/vdc/25faa17d-588e-42e1-af5b-190187f51e64/action/cloneMedia" type="application/vnd.vmware.vcloud.cloneMediaParams+xml"/>
+    <Link rel="add" href="https://10.134.3.58/api/vdc/25faa17d-588e-42e1-af5b-190187f51e64/action/captureVApp" type="application/vnd.vmware.vcloud.captureVAppParams+xml"/>
+    <Link rel="add" href="https://10.134.3.58/api/vdc/25faa17d-588e-42e1-af5b-190187f51e64/action/composeVApp" type="application/vnd.vmware.vcloud.composeVAppParams+xml"/>
+    <Link rel="add" href="https://10.134.3.58/api/vdc/25faa17d-588e-42e1-af5b-190187f51e64/disk" type="application/vnd.vmware.vcloud.diskCreateParams+xml"/>
+    <Link rel="edgeGateways" href="https://10.134.3.58/api/admin/vdc/25faa17d-588e-42e1-af5b-190187f51e64/edgeGateways" type="application/vnd.vmware.vcloud.query.records+xml"/>
+    <Link rel="add" href="https://10.134.3.58/api/admin/vdc/25faa17d-588e-42e1-af5b-190187f51e64/networks" type="application/vnd.vmware.vcloud.orgVdcNetwork+xml"/>
+    <Link rel="orgVdcNetworks" href="https://10.134.3.58/api/admin/vdc/25faa17d-588e-42e1-af5b-190187f51e64/networks" type="application/vnd.vmware.vcloud.query.records+xml"/>
+    <Link rel="alternate" href="https://10.134.3.58/api/admin/vdc/25faa17d-588e-42e1-af5b-190187f51e64" type="application/vnd.vmware.admin.vdc+xml"/>
+    <Description>HR Dept VDC</Description>
+    <AllocationModel>AllocationVApp</AllocationModel>
+    <ComputeCapacity>
+        <Cpu>
+            <Units>MHz</Units>
+            <Allocated>2000</Allocated>
+            <Limit>0</Limit>
+            <Reserved>0</Reserved>
+            <Used>500</Used>
+            <Overhead>0</Overhead>
+        </Cpu>
+        <Memory>
+            <Units>MB</Units>
+            <Allocated>50000</Allocated>
+            <Limit>0</Limit>
+            <Reserved>0</Reserved>
+            <Used>16000</Used>
+            <Overhead>0</Overhead>
+        </Memory>
+    </ComputeCapacity>
+    <ResourceEntities>
+        <ResourceEntity href="https://10.134.3.58/api/vAppTemplate/vappTemplate-350d44e5-50b6-4ea1-b396-3cf82172d5c7" name="SQL_Server" type="application/vnd.vmware.vcloud.vAppTemplate+xml"/>
+        <ResourceEntity href="https://10.134.3.58/api/vAppTemplate/vappTemplate-3dd76be4-bbac-4892-bc3e-bcea107aca94" name="Oracle-RHEL" type="application/vnd.vmware.vcloud.vAppTemplate+xml"/>
+        <ResourceEntity href="https://10.134.3.58/api/vApp/vapp-28cffd81-4dce-43a9-bc06-23d13b6f5090" name="vApp_system_1" type="application/vnd.vmware.vcloud.vApp+xml"/>
+        <ResourceEntity href="https://10.134.3.58/api/vApp/vapp-990bfdb6-b30d-4f25-850d-f4b473a2e01e" name="Web_app" type="application/vnd.vmware.vcloud.vApp+xml"/>
+        <ResourceEntity href="https://10.134.3.58/api/vApp/vapp-afc05763-ccd2-46e7-965c-eee4e45640e7" name="Oracle11" type="application/vnd.vmware.vcloud.vApp+xml"/>
+    </ResourceEntities>
+    <AvailableNetworks>
+        <Network href="https://10.134.3.58/api/network/0e14ab9d-652c-4ca7-9921-001458922600" name="Routed_HR_NW" type="application/vnd.vmware.vcloud.network+xml"/>
+        <Network href="https://10.134.3.58/api/network/e46be1cb-5acf-45e8-baed-960b3f1bf9f6" name="CustomerA-Web-NW" type="application/vnd.vmware.vcloud.network+xml"/>
+        <Network href="https://10.134.3.58/api/network/facc12af-1c39-4e01-8375-4108a8d0781a" name="CustomerA-HR-Org-nw" type="application/vnd.vmware.vcloud.network+xml"/>
+    </AvailableNetworks>
+    <Capabilities>
+        <SupportedHardwareVersions>
+            <SupportedHardwareVersion>vmx-04</SupportedHardwareVersion>
+            <SupportedHardwareVersion>vmx-07</SupportedHardwareVersion>
+            <SupportedHardwareVersion>vmx-08</SupportedHardwareVersion>
+            <SupportedHardwareVersion>vmx-09</SupportedHardwareVersion>
+            <SupportedHardwareVersion>vmx-10</SupportedHardwareVersion>
+        </SupportedHardwareVersions>
+    </Capabilities>
+    <NicQuota>0</NicQuota>
+    <NetworkQuota>1000</NetworkQuota>
+    <UsedNetworkCount>3</UsedNetworkCount>
+    <VmQuota>100</VmQuota>
+    <IsEnabled>true</IsEnabled>
+    <VdcStorageProfiles>
+        <VdcStorageProfile href="https://10.134.3.58/api/vdcStorageProfile/7d058f0c-07c6-4d98-be89-102b3c673ce3" name="*" type="application/vnd.vmware.vcloud.vdcStorageProfile+xml"/>
+    </VdcStorageProfiles>
+    <VCpuInMhz2>1000</VCpuInMhz2>
+</Vdc>

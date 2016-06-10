@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+
+
+  <link href="./css/table.css"      rel="stylesheet"> 
+  <link href="./css/table_main.css" rel="stylesheet"> 
+  
+    <script src="./js/table.js"></script>
+    <script src="./js/ColResizable-1.5.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+<h1><a href="http://www.bacubacu.com/colresizable">Resize columns and tables </a></h1>
+
+<p> With colResizable you can resize and drag columns in html tables</p>
+
+<table id="sample" width="100%" border="0" cellpadding="0" cellspacing="0" >
+<tbody><tr>
+<th style="width: 20%;">header</th><th style="width: 40%;">header</th><th style="width: 15%;">header</th><th style="width: 25%;">header</th>
+</tr>
+<tr>
+	<td class="left">cell</td><td>cell</td><td>cell</td><td class="right">cell</td>
+</tr>
+<tr>
+		<td class="left">cell</td><td>cell</td><td>cell</td><td class="right">cell</td>
+</tr>
+<tr>
+	<td class="left bottom">cell</td><td class="bottom">cell</td><td class="bottom">cell</td><td class="bottom right">cell</td>
+</tr>				
+   
+</tbody></table>
+
+<br/>
+
+<p> Using colResizable it is also posible to customize the column anchors and make them look as you want</p>
+
+<table id="sample2" width="100%" border="0" cellpadding="0" cellspacing="0" >
+<tbody><tr>
+<th style="width: 20%;">header</th><th style="width: 40%;">header</th><th style="width: 15%;">header</th><th style="width: 25%;">header</th>
+</tr>
+<tr>
+	<td class="left">cell</td><td>cell</td><td>cell</td><td class="right">cell</td>
+</tr>
+<tr>
+		<td class="left">cell</td><td>cell</td><td>cell</td><td class="right">cell</td>
+</tr>
+<tr>
+	<td class="left bottom">cell</td><td class="bottom">cell</td><td class="bottom">cell</td><td class="bottom right">cell</td>
+</tr>				
+   
+</tbody></table>
+<br/>
+
+<p>it also can handle non-fixed tables so you can resize columns independetly</p>
+
+	 <table id="nonFixedSample"  width="50%" border="0" cellpadding="0" cellspacing="0">
+						<tr>
+							<th>header</th><th>header</th><th>header</th>
+						</tr>
+						<tr>
+							<td class="left">cell</td><td>cell</td><td class="right">cell</td>
+						</tr>
+						<tr>
+							<td class="left">cell</td><td>cell</td><td class="right">cell</td>
+						</tr>
+						<tr>
+							<td class="left bottom">cell</td><td class="bottom">cell</td><td class="bottom right">cell</td>
+						</tr>																	
+	</table>
+
+
+<script>
+$("#sample").colResizable({liveDrag:true});
+
+$("#sample2").colResizable({
+    liveDrag:true,
+    gripInnerHtml:"<div class='grip'></div>", 
+    draggingClass:"dragging" });
+
+
+$("#nonFixedSample").colResizable({
+    fixed:false,
+    liveDrag:true,
+    gripInnerHtml:"<div class='grip2'></div>", 
+    draggingClass:"dragging" 
+});
+</script>
+
+
+
+
+</body>
+</html>

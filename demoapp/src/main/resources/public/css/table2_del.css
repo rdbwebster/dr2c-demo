@@ -1,0 +1,31 @@
+th.tablesorter-header.resizable-false {
+  background-color: #e6bf99;
+}
+/* ensure box-sizing is set to content-box, if using jQuery versions older than 1.8;
+ this page is using jQuery 1.4 */
+*, *:before, *:after {
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+/* overflow table */
+.wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 450px;
+}
+.wrapper table {
+  width: auto;
+  table-layout: fixed;
+}
+.wrapper .tablesorter td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 10px;
+}
+.wrapper .tablesorter th {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 10px;
+}

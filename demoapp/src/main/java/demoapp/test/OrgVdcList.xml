@@ -1,0 +1,23 @@
+
+<Org xmlns="http://www.vmware.com/vcloud/v1.5" name="CustomerA" id="urn:vcloud:org:9517e566-3119-4fb5-b6c4-466960a60c75" href="https://10.134.3.58/api/org/9517e566-3119-4fb5-b6c4-466960a60c75" type="application/vnd.vmware.vcloud.org+xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.vmware.com/vcloud/v1.5 http://10.134.3.58/api/v1.5/schema/master.xsd">
+    <Link rel="down" href="https://10.134.3.58/api/vdc/25faa17d-588e-42e1-af5b-190187f51e64" name="HR" type="application/vnd.vmware.vcloud.vdc+xml"/>
+    <Link rel="down" href="https://10.134.3.58/api/tasksList/9517e566-3119-4fb5-b6c4-466960a60c75" type="application/vnd.vmware.vcloud.tasksList+xml"/>
+    <Link rel="down" href="https://10.134.3.58/api/catalog/2053025b-a102-4bc8-959a-bdaf6829468a" name="Applications" type="application/vnd.vmware.vcloud.catalog+xml"/>
+    <Link rel="down" href="https://10.134.3.58/api/catalog/2053025b-a102-4bc8-959a-bdaf6829468a/controlAccess/" type="application/vnd.vmware.vcloud.controlAccess+xml"/>
+    <Link rel="controlAccess" href="https://10.134.3.58/api/catalog/2053025b-a102-4bc8-959a-bdaf6829468a/action/controlAccess" type="application/vnd.vmware.vcloud.controlAccess+xml"/>
+    <Link rel="down" href="https://10.134.3.58/api/catalog/a0be8915-b3d8-4218-bbc6-146baa2a8e15" name="OS Images" type="application/vnd.vmware.vcloud.catalog+xml"/>
+    <Link rel="down" href="https://10.134.3.58/api/catalog/a0be8915-b3d8-4218-bbc6-146baa2a8e15/controlAccess/" type="application/vnd.vmware.vcloud.controlAccess+xml"/>
+    <Link rel="controlAccess" href="https://10.134.3.58/api/catalog/a0be8915-b3d8-4218-bbc6-146baa2a8e15/action/controlAccess" type="application/vnd.vmware.vcloud.controlAccess+xml"/>
+    <Link rel="add" href="https://10.134.3.58/api/admin/org/9517e566-3119-4fb5-b6c4-466960a60c75/catalogs" type="application/vnd.vmware.admin.catalog+xml"/>
+    <Link rel="down" href="https://10.134.3.58/api/network/0e14ab9d-652c-4ca7-9921-001458922600" name="Routed_HR_NW" type="application/vnd.vmware.vcloud.orgNetwork+xml"/>
+    <Link rel="down" href="https://10.134.3.58/api/network/e46be1cb-5acf-45e8-baed-960b3f1bf9f6" name="CustomerA-Web-NW" type="application/vnd.vmware.vcloud.orgNetwork+xml"/>
+    <Link rel="down" href="https://10.134.3.58/api/network/facc12af-1c39-4e01-8375-4108a8d0781a" name="CustomerA-HR-Org-nw" type="application/vnd.vmware.vcloud.orgNetwork+xml"/>
+    <Link rel="down" href="https://10.134.3.58/api/supportedSystemsInfo/" type="application/vnd.vmware.vcloud.supportedSystemsInfo+xml"/>
+    <Link rel="down" href="https://10.134.3.58/api/org/9517e566-3119-4fb5-b6c4-466960a60c75/metadata" type="application/vnd.vmware.vcloud.metadata+xml"/>
+    <Link rel="down" href="https://10.134.3.58/api/org/9517e566-3119-4fb5-b6c4-466960a60c75/hybrid" type="application/vnd.vmware.vcloud.hybridOrg+xml"/>
+    <Link rel="alternate" href="https://10.134.3.58/api/admin/org/9517e566-3119-4fb5-b6c4-466960a60c75" type="application/vnd.vmware.admin.organization+xml"/>
+    <Link rel="down" href="https://10.134.3.58/api/vdcTemplates" type="application/vnd.vmware.admin.vdcTemplates+xml"/>
+    <Link rel="instantiate" href="https://10.134.3.58/api/org/9517e566-3119-4fb5-b6c4-466960a60c75/action/instantiate" type="application/vnd.vmware.vcloud.instantiateVdcTemplateParams+xml"/>
+    <Description/>
+    <FullName>CustomerA</FullName>
+</Org>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:ReplicationGroup xmlns="http://www.vmware.com/vcloud/v1.5" xmlns:ns2="http://www.vmware.com/vr/v6.0" xmlns:ns3="http://schemas.dmtf.org/ovf/envelope/1" xmlns:ns4="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData" xmlns:ns5="http://schemas.dmtf.org/wbem/wscim/1/common" xmlns:ns6="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData" xmlns:ns7="http://schemas.dmtf.org/ovf/environment/1" xmlns:ns8="http://www.vmware.com/vcloud/extension/v1.5" xmlns:ns9="http://www.vmware.com/vr/v6.0/internal" xmlns:ns10="http://www.vmware.com/vcloud/versions" xmlns:ns11="http://www.vmware.com/vcloud/vcta" name="Test2" id="urn:hcs:replication:38da8552-035b-4eac-9c44-11fc15af3c7d--CGID-706726ae-9ab4-4dd1-ace5-eb4a975f15c5" href="https://10.26.227.15/api/vr/replications/38da8552-035b-4eac-9c44-11fc15af3c7d--CGID-706726ae-9ab4-4dd1-ace5-eb4a975f15c5" type="application/vnd.vmware.hcs.replicationGroup+xml">
+    <Link rel="operation:plannedMigration" href="https://10.26.227.15/api/vr/replications/38da8552-035b-4eac-9c44-11fc15af3c7d--CGID-706726ae-9ab4-4dd1-ace5-eb4a975f15c5/action/plannedMigration" type="application/vnd.vmware.hcs.failoverParams+xml"/>
+    <Link rel="operation:failover" href="https://10.26.227.15/api/vr/replications/38da8552-035b-4eac-9c44-11fc15af3c7d--CGID-706726ae-9ab4-4dd1-ace5-eb4a975f15c5/action/failover" type="application/vnd.vmware.hcs.failoverParams+xml"/>
+    <Link rel="remove" href="https://10.26.227.15/api/vr/replications/38da8552-035b-4eac-9c44-11fc15af3c7d--CGID-706726ae-9ab4-4dd1-ace5-eb4a975f15c5" id="38da8552-035b-4eac-9c44-11fc15af3c7d--CGID-706726ae-9ab4-4dd1-ace5-eb4a975f15c5" type="application/vnd.vmware.hcs.replicationGroup+xml"/>
+    <Link rel="up" href="https://10.26.227.15/api/vr/peers/38da8552-035b-4eac-9c44-11fc15af3c7d--229ecdc2-561e-44ad-a633-9054ac9ad8b3" type="application/vnd.vmware.hcs.peer+xml"/>
+    <ns2:Rpo>15</ns2:Rpo>
+    <ns2:QuiesceGuestEnabled>false</ns2:QuiesceGuestEnabled>
+    <ns2:NetworkCompressionEnabled>false</ns2:NetworkCompressionEnabled>
+    <ns2:PlaceholderVappId>urn:vcloud:vapp:a6860231-64f5-4203-af15-1d865995ec77</ns2:PlaceholderVappId>
+    <ns2:EventPartitionId>4364f1c3-3e57-4100-9d64-c91677982272</ns2:EventPartitionId>
+    <ns2:ReplicationState>recovered</ns2:ReplicationState>
+    <ns2:VrServerInfo>
+        <ns2:Uuid>52526e9d-2dd0-312c-2f8f-e9d4ad1cf720</ns2:Uuid>
+    </ns2:VrServerInfo>
+    <ns2:NextInstanceSequenceNumber>432</ns2:NextInstanceSequenceNumber>
+    <ns2:Paused>false</ns2:Paused>
+    <ns2:CurrentRpoViolation>-1</ns2:CurrentRpoViolation>
+    <ns2:TestRecoveryState>testInProgress</ns2:TestRecoveryState>
+    <ns2:RecoveryState>ok</ns2:RecoveryState>
+    <ns2:RecoveryCompletionTime>2016-05-09T17:43:57.164Z</ns2:RecoveryCompletionTime>
+    <ns2:ReplicationGroupInstance>
+        <ns2:TransferStartTime>2016-05-09T17:38:35.000Z</ns2:TransferStartTime>
+        <ns2:TransferSeconds>1</ns2:TransferSeconds>
+        <ns2:TransferBytes>0</ns2:TransferBytes>
+    </ns2:ReplicationGroupInstance>
+</ns2:ReplicationGroup>
