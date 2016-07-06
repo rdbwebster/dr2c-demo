@@ -660,11 +660,8 @@ public class ApacheClientParser {
 				// Parse response with JOOX
 				
 				logger.debug("\n parseReplicationGroupRefs");
-				
-			
-					
-				 Match $refs = $(bis);  // <References>
-				
+
+				 Match $refs = $(bis);  // <References>		
 						
 				 // Get Refs Info
 			     $refs.find("Reference").forEach(ref -> {
@@ -768,6 +765,18 @@ public class ApacheClientParser {
 	                     ref.setHref(link.getAttribute("href"));
 	                     ref.setType( link.getAttribute("type"));
 	                     repGroup.setTestFailoverOpRef(ref);    
+	     	     }
+	     	     
+	     	    
+	     	     // Get cleanup test failover operation (if any depending on state) also link does not include a type
+	     	     // Identify by rel attribute
+	     	     if(link.getAttribute("rel").equals("operation:testCleanup")) {
+	     	        	
+	     	        	 ReferenceType ref = new ReferenceType();
+	     	        	 ref.setName(link.getAttribute("rel"));
+	                     ref.setHref(link.getAttribute("href"));
+	                     ref.setType("application/vnd.vmware.hcs.cleanupTestFailoverParams+xml");  // type missing in beta
+	                     repGroup.setTestCleanupFailoverOpRef(ref);    
 	     	     }
 	     	     
 	     	     // Get test remove operation 

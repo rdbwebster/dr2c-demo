@@ -574,6 +574,14 @@ public class SDKClient extends VcdClient {
     	return null;
     }
     
+    /* cleanup test replication, not supported in vCD Java API 
+     * 
+     */
+    public demoapp.model.Task  cleanupTestReplication(String s) {
+    	logger.warn("testReplication not implemented by vCD Java API");
+    	return null;
+    }
+    
     /* test replication, not supported in vCD Java API 
      * 
      */

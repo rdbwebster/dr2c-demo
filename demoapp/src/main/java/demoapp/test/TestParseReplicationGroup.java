@@ -24,7 +24,7 @@ public static void main(String args[]) throws Exception {
 				System.out.println("Total file size to read (in bytes) : "
 						+ fis.available());
 	
-			
+	
 				System.out.println("running test");
 				
 				 ReplicationGroup result = ApacheClientParser.parseReplicationGroup(fis);

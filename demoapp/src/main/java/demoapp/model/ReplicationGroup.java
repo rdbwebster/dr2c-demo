@@ -21,6 +21,7 @@ public class ReplicationGroup {
 	String transferBytes= "";
 	ReferenceType failoverOpRef= null;
 	ReferenceType testFailoverOpRef= null;
+	ReferenceType testCleanupFailoverOpRef= null;
 	ReferenceType removeOpRef= null;
 	ReferenceType plannedMigrationOpRef= null;
 	
@@ -150,6 +151,8 @@ public class ReplicationGroup {
 	
 
 	
+
+	
 	@Override
 	public String toString() {
 		return "ReplicationGroup [name=" + name + ", href=" + href + ", rpo=" + rpo + ", quiesceGuestEnabled="
@@ -160,8 +163,15 @@ public class ReplicationGroup {
 				+ ", recoveryState=" + recoveryState + ", recoveryCompletionTime=" + recoveryCompletionTime
 				+ ", transferStartTime=" + transferStartTime + ", transferSeconds=" + transferSeconds
 				+ ", transferBytes=" + transferBytes + ", failoverOpRef=" + failoverOpRef + ", testFailoverOpRef="
-				+ testFailoverOpRef + ", removeOpRef=" + removeOpRef + ", plannedMigrationOpRef="
-				+ plannedMigrationOpRef + "]";
+				+ testFailoverOpRef + ", testCleanupFailoverOpRef=" + testCleanupFailoverOpRef + ", removeOpRef="
+				+ removeOpRef + ", plannedMigrationOpRef=" + plannedMigrationOpRef + "]";
+	}
+	
+	public ReferenceType getTestCleanupFailoverOpRef() {
+		return testCleanupFailoverOpRef;
+	}
+	public void setTestCleanupFailoverOpRef(ReferenceType testCleanupFailoverOpRef) {
+		this.testCleanupFailoverOpRef = testCleanupFailoverOpRef;
 	}
 	
 	public ReferenceType getPlannedMigrationOpRef() {

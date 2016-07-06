@@ -110,6 +110,31 @@ $(document).ready(function(){
     });
   });
 
+$(document).ready(function(){                     
+    $(function(){
+       $("#Cleanup").click(function(e){
+    	
+    	   var postdata = getCheckedRows();
+    	
+    	   
+    //	   registerCallbackSession();
+    	   
+    	   makeAjaxCall("cleanuptestreplication", postdata);
+    	//   sendMessage(postdata);
+    	   
+     	   
+    	   // change to in progress icon
+    	//   .v-icon-status-UNRESOLVED
+    	   
+    	   
+    	   clearCheckedRows();
+    	   
+    	   updateHeaderMessages("getmessages");
+    	 
+      });
+    });
+  });
+
 
 
 

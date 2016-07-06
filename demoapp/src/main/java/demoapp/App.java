@@ -268,6 +268,12 @@ public class App {
         	  
         });
         
+        post("/cleanuptestreplication", (request, response) -> {
+        	logger.debug("Route /cleanuptestreplication called");
+        	  return performAction("cleanup", request);
+        	  
+        });
+        
         post("/removereplication", (request, response) -> {
         	logger.debug("Route /removereplication called");
         	  return performAction("remove", request);
@@ -676,6 +682,7 @@ public class App {
               else if(action.equals("resume")) task = client.resumeVM(vmHref);
                else if(action.equals("test")) task = client.testReplication(vmHref);
                  else if(action.equals("remove")) task = client.removeReplication(vmHref);
+                 else if(action.equals("cleanup")) task = client.cleanupTestReplication(vmHref);
                   else logger.warn("unknown action passed to performAction()");
               	
          if(task.getErrorDescription().length() != 0) {

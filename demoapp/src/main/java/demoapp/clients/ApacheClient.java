@@ -15,6 +15,7 @@ import java.util.Map;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.auth.AuthScope;
@@ -32,6 +33,7 @@ import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -97,6 +99,7 @@ public class ApacheClient extends VcdClient{
 	            httpPost.addHeader("accept", "application/*+xml;version=9.0");
 	 
 				// Execute your request and catch response
+	        
 			    httpPost.setEntity(new UrlEncodedFormEntity(nvps));
 	            HttpResponse response2 = httpClient.execute(httpPost);
 	            
@@ -492,7 +495,7 @@ public class ApacheClient extends VcdClient{
 			 // Call the poweron link if present
 			 if(vm.getPowerOnHref() != null) {
 				 // TODO
-				 task = performPostAction(vm.getPowerOnHref());
+				 task = performPostAction(vm.getPowerOnHref(), null);
 				 
 			 } else
 				 logger.error("VM " + vm.getName() + " in incorrect state for powerOn action.");
@@ -525,7 +528,7 @@ public class ApacheClient extends VcdClient{
 		 // Call the poweroff link if present
 		 if(vm.getPowerOffhref() != null) {
 			 // TODO
-			 task = performPostAction(vm.getPowerOffhref());
+			 task = performPostAction(vm.getPowerOffhref(), null);
 			 
 		 } else
 			 logger.error("VM " + vm.getName() + " in incorrect state for powerOff action.");
@@ -559,7 +562,7 @@ public class ApacheClient extends VcdClient{
 		 // Call the poweron link if present
 		 if(vm.getSuspendHref() != null) {
 			 // TODO
-			 performPostAction(vm.getSuspendHref());
+			 performPostAction(vm.getSuspendHref(), null);
 			 
 		 } else
 			 logger.error("VM " + vm.getName() + " in incorrect state for suspend action.");
@@ -590,7 +593,7 @@ public class ApacheClient extends VcdClient{
 		 // Call the poweron link if present
 		 if(vm.getPowerOnHref() != null) {
 			 // TODO
-			 task = performPostAction(vm.getPowerOnHref());
+			 task = performPostAction(vm.getPowerOnHref(), null);
 			 
 		 } else
 			 logger.error("VM " + vm.getName() + " in incorrect state for resume action.");
@@ -619,12 +622,27 @@ public class ApacheClient extends VcdClient{
 		 
 		 try {
 		 
-		 ReplicationGroup rg = getReplicationGroup( href);
+		  ReplicationGroup rg = getReplicationGroup( href);
+		 
+			
+		  List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+		 
+		  String testParm = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> " + 
+				            "<ns2:TestFailoverParams xmlns=\"http://www.vmware.com/vcloud/v1.5\" " +
+		 		            "xmlns:ns2=\"http://www.vmware.com/vr/v6.0\" xmlns:ns3=\"http://schemas.dmtf.org/ovf/envelope/1\" " +
+				            "xmlns:ns4=\"http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData\" " +
+		 		            "xmlns:ns5=\"http://schemas.dmtf.org/wbem/wscim/1/common\" " +
+				            "xmlns:ns6=\"http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData\" " +
+		 		            "xmlns:ns7=\"http://schemas.dmtf.org/ovf/environment/1\"> " +
+				            "<ns2:PowerOn>true</ns2:PowerOn> " +
+                            "<ns2:Synchronize>false</ns2:Synchronize> " +
+                            "</ns2:TestFailoverParams>";
+		  System.out.println("testParm = " + testParm);
 		 
 		 // Call the test link if present
 		 if(rg.getTestFailoverOpRef() != null && rg.getTestFailoverOpRef().getHref()!= null) {
 			 // TODO
-			 task = performPostAction(rg.getTestFailoverOpRef().getHref());
+			 task = performPostAction(rg.getTestFailoverOpRef().getHref(), testParm);
 			 logger.debug("Post call to test failover");
 			 
 		 } else
@@ -639,6 +657,55 @@ public class ApacheClient extends VcdClient{
 		
 		 return task;
 	 }
+	 
+
+
+	 public Task cleanupTestReplication(String href)  {
+
+		 Task task = new Task();
+	
+		 if(href == null || href.length() == 0) {
+	    		logger.error("href passed to cleanupTestReplication is null");
+				 task.setErrorDescription("Error: href passed to cleanupTestReplication is null " + href);
+	     }
+		 
+		 try {
+		 
+		  ReplicationGroup rg = getReplicationGroup( href);
+			
+		  List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+		 
+		  String testParm = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> " + 
+				            "<ns2:TestFailoverParams xmlns=\"http://www.vmware.com/vcloud/v1.5\" " +
+		 		            "xmlns:ns2=\"http://www.vmware.com/vr/v6.0\" xmlns:ns3=\"http://schemas.dmtf.org/ovf/envelope/1\" " +
+				            "xmlns:ns4=\"http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData\" " +
+		 		            "xmlns:ns5=\"http://schemas.dmtf.org/wbem/wscim/1/common\" " +
+				            "xmlns:ns6=\"http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData\" " +
+		 		            "xmlns:ns7=\"http://schemas.dmtf.org/ovf/environment/1\"> " +
+				            "<ns2:PowerOn>true</ns2:PowerOn> " +
+                            "<ns2:Synchronize>false</ns2:Synchronize> " +
+                            "</ns2:TestFailoverParams>";
+		//  System.out.println("testParm = " + testParm);
+		 
+		 // Check if the test cleanup link is present
+		 if(rg.getTestCleanupFailoverOpRef() != null && rg.getTestCleanupFailoverOpRef().getHref()!= null) {	 
+			 
+			 task = performPostAction(rg.getTestCleanupFailoverOpRef().getHref(), testParm);
+			 logger.debug("Post call to cleanup test failover");
+			 
+		 } else
+			 logger.error("ReplicationGroup " + rg.getName() + " in incorrect state for cleanup test action.");
+	         task.setErrorDescription("ReplicationGroup " + rg.getName() + " in incorrect state for cleanup test action.");
+		 }
+		 	
+		 catch (DemoException dex) {
+			 logger.error("Exception trying to retrieve ReplicationGroup using href " + href);
+			 task.setErrorDescription("Exception trying to retrieve ReplicationGroup using vmhref " + href);
+		 }
+		
+		 return task;
+	 }
+	 
 	 
 
 	 public Task removeReplication(String href)  {
@@ -1008,19 +1075,27 @@ public class ApacheClient extends VcdClient{
 	     }
 
 
-	     public Task performPostAction(String href) throws DemoException {
+	     public Task performPostAction(String href, String data ) throws DemoException {
 	    	
 		    Task task = new Task();
 		
 			try {
+
 				
-						
 				// Create new Request with below mentioned URL
 				HttpPost postRequest = new HttpPost(href);
 	 
 				// Add additional header to getRequest which accepts application/xml data
 				postRequest.addHeader("accept", "application/*+xml;version=9.0");
 	 
+				// Add post parms if any
+				if(data != null) {
+			    //	postRequest.setEntity(new UrlEncodedFormEntity(parms));
+			    	postRequest.addHeader("Content-Type", "application/vnd.vmware.hcs.failoverParams+xml");
+					HttpEntity entity = new ByteArrayEntity(data.getBytes("UTF-8"));
+					postRequest.setEntity(entity);
+				}
+				
 				// Add vcd cloud session id
 				postRequest.addHeader("x-vcloud-authorization", sessionId);
 			     
@@ -1030,7 +1105,7 @@ public class ApacheClient extends VcdClient{
 				HttpResponse response = httpClient.execute(postRequest);
 	 
 				// Check for HTTP response code: 202 = success
-				if (response.getStatusLine().getStatusCode() != 202) {
+				if (response.getStatusLine().getStatusCode() != 202 && response.getStatusLine().getStatusCode() != 200) {
 					logger.error("Failed : HTTP Post error code : " + response.getStatusLine().getStatusCode());
 					task.setErrorDescription( "HTTP Post error code : " + response.getStatusLine().getStatusCode());
 				} 
