@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<References xmlns="http://www.vmware.com/vcloud/v1.5" xmlns:ns2="http://www.vmware.com/vr/v6.0" xmlns:ns3="http://schemas.dmtf.org/ovf/envelope/1" xmlns:ns4="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData" xmlns:ns5="http://schemas.dmtf.org/wbem/wscim/1/common" xmlns:ns6="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData" xmlns:ns7="http://schemas.dmtf.org/ovf/environment/1" xmlns:ns8="http://www.vmware.com/vcloud/extension/v1.5" xmlns:ns9="http://www.vmware.com/vr/v6.0/internal" xmlns:ns10="http://www.vmware.com/vcloud/versions" xmlns:ns11="http://www.vmware.com/vcloud/vcta" href="https://10.158.12.128/api/org/11761250-fcd3-4f67-81c8-239ee96d8a41/enabledForReplicationVdcs">
+    <Link rel="up" href="https://10.158.12.128/api/org/11761250-fcd3-4f67-81c8-239ee96d8a41" type="application/vnd.vmware.vcloud.org+xml"/>
+    <Reference href="https://10.158.12.128/api/vdc/579ef9ce-8205-4981-a279-2e900648a33e" type="application/vnd.vmware.vcloud.vdc+xml"/>
+</References>

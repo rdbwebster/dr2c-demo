@@ -103,6 +103,12 @@ public class ApacheClient extends VcdClient{
 			
 				// Check for HTTP response code: 200 = success
 	            logger.debug("status code is " + response2.getStatusLine().getStatusCode());
+	            if (response2.getStatusLine().getStatusCode() == 403) {
+	            	 
+	            	logger.error("Http call error: " + response2.getStatusLine().getStatusCode() );
+					throw new DemoException("Unauthorized: Invalid Username / Password " + response2.getStatusLine().getStatusCode());
+	            }
+	            
 				if (response2.getStatusLine().getStatusCode() != 200) {
 					logger.error("Http call error: " + response2.getStatusLine().getStatusCode() );
 					throw new DemoException("Failed : HTTP error code : " + response2.getStatusLine().getStatusCode());
@@ -486,7 +492,7 @@ public class ApacheClient extends VcdClient{
 			 // Call the poweron link if present
 			 if(vm.getPowerOnHref() != null) {
 				 // TODO
-				 task = performAction(vm.getPowerOnHref());
+				 task = performPostAction(vm.getPowerOnHref());
 				 
 			 } else
 				 logger.error("VM " + vm.getName() + " in incorrect state for powerOn action.");
@@ -519,7 +525,7 @@ public class ApacheClient extends VcdClient{
 		 // Call the poweroff link if present
 		 if(vm.getPowerOffhref() != null) {
 			 // TODO
-			 task = performAction(vm.getPowerOffhref());
+			 task = performPostAction(vm.getPowerOffhref());
 			 
 		 } else
 			 logger.error("VM " + vm.getName() + " in incorrect state for powerOff action.");
@@ -553,7 +559,7 @@ public class ApacheClient extends VcdClient{
 		 // Call the poweron link if present
 		 if(vm.getSuspendHref() != null) {
 			 // TODO
-			 performAction(vm.getSuspendHref());
+			 performPostAction(vm.getSuspendHref());
 			 
 		 } else
 			 logger.error("VM " + vm.getName() + " in incorrect state for suspend action.");
@@ -584,7 +590,7 @@ public class ApacheClient extends VcdClient{
 		 // Call the poweron link if present
 		 if(vm.getPowerOnHref() != null) {
 			 // TODO
-			 task = performAction(vm.getPowerOnHref());
+			 task = performPostAction(vm.getPowerOnHref());
 			 
 		 } else
 			 logger.error("VM " + vm.getName() + " in incorrect state for resume action.");
@@ -598,6 +604,76 @@ public class ApacheClient extends VcdClient{
 		 
 		 return task;
 	 }
+	 
+
+	 public Task testReplication(String href)  {
+
+		 
+		 Task task = new Task();
+		 
+	
+		 if(href == null || href.length() == 0) {
+	    		logger.error("href passed to testReplication is null");
+				 task.setErrorDescription("Error: href passed to testReplication is null " + href);
+	     }
+		 
+		 try {
+		 
+		 ReplicationGroup rg = getReplicationGroup( href);
+		 
+		 // Call the test link if present
+		 if(rg.getTestFailoverOpRef() != null && rg.getTestFailoverOpRef().getHref()!= null) {
+			 // TODO
+			 task = performPostAction(rg.getTestFailoverOpRef().getHref());
+			 logger.debug("Post call to test failover");
+			 
+		 } else
+			 logger.error("ReplicationGroup " + rg.getName() + " in incorrect state for test action.");
+	         task.setErrorDescription("ReplicationGroup " + rg.getName() + " in incorrect state for test action.");
+		 }
+		 	
+		 catch (DemoException dex) {
+			 logger.error("Exception trying to retrieve ReplicationGroup using href " + href);
+			 task.setErrorDescription("Exception trying to retrieve ReplicationGroup using vmhref " + href);
+		 }
+		
+		 return task;
+	 }
+	 
+
+	 public Task removeReplication(String href)  {
+
+		 
+		 Task task = new Task();
+		 
+	
+		 if(href == null || href.length() == 0) {
+	    		logger.error("href passed to removeReplication is null");
+				 task.setErrorDescription("Error: href passed to removeReplication is null " + href);
+	     }
+		 
+		 try {
+		 
+		 ReplicationGroup rg = getReplicationGroup( href);
+		 
+		 // Call the test link if present
+		 if(rg.getRemoveOpRef().getHref()!= null) {
+			 // TODO
+			 task = performDeleteAction(rg.getRemoveOpRef().getHref());
+			 
+		 } else
+			 logger.error("ReplicationGroup " + rg.getName() + " in incorrect state for remove action.");
+	         task.setErrorDescription("ReplicationGroup " + rg.getName() + " in incorrect state for remove action.");
+		 }
+		 	
+		 catch (DemoException dex) {
+			 logger.error("Exception trying to retrieve ReplicationGroup using href " + href);
+			 task.setErrorDescription("Exception trying to retrieve ReplicationGroup using vmhref " + href);
+		 }
+		
+		 return task;
+	 }
+
 
 	 
 	// https://hc.apache.org/httpcomponents-client-4.3.x/quickstart.html
@@ -696,9 +772,7 @@ public class ApacheClient extends VcdClient{
 	 
 
 	    public VMInfo getVMInfo(String vmHref)  {
-	    	
-	    	
-	    	
+
 	    	// get the VM
 	    	
 	    	VMInfo vminfo = new VMInfo();
@@ -784,30 +858,9 @@ public class ApacheClient extends VcdClient{
 				// for each reference returned get replication group
 				
 				for (String rgRef : rgRefList) {
+					
+					ReplicationGroup rg = getReplicationGroup(rgRef); 
 			
-					// Create new getRequest with below mentioned URL
-					HttpGet rgRequest = new HttpGet(rgRef);
-		 
-					// Add additional header to getRequest which accepts application/xml data
-					rgRequest.addHeader("accept", "application/*+xml;version=9.0");
-		 
-					// Add vcd cloud session id
-					rgRequest.addHeader("x-vcloud-authorization", sessionId);
-				     
-					logger.debug("Calling to retrieve Replication Group " + rgRef);
-					
-					// Execute your request and catch response
-					HttpResponse rgResponse = httpClient.execute(rgRequest);
-		 
-					// Check for HTTP response code: 200 = success
-					if (rgResponse.getStatusLine().getStatusCode() != 200) {
-						logger.error("Http call error: " + rgResponse.getStatusLine().getStatusCode() );
-						throw new DemoException("Failed : HTTP error code : " + rgResponse.getStatusLine().getStatusCode());
-					}
-							 
-					
-					ReplicationGroup rg = ApacheClientParser.parseReplicationGroup(rgResponse.getEntity().getContent());
-					logger.debug("Returned replication group " + rg.getName());
 					replgroup.add(rg);
 				}
 				
@@ -819,7 +872,43 @@ public class ApacheClient extends VcdClient{
 		    return replgroup;
 	     }
 	     
-	     
+	     public ReplicationGroup getReplicationGroup(String rgRef) throws DemoException {
+	    	 
+				// Create new getRequest with below mentioned URL
+				HttpGet rgRequest = new HttpGet(rgRef);
+	 
+				// Add additional header to getRequest which accepts application/xml data
+				rgRequest.addHeader("accept", "application/*+xml;version=9.0");
+	 
+				// Add vcd cloud session id
+				rgRequest.addHeader("x-vcloud-authorization", sessionId);
+			     
+				logger.debug("Calling to retrieve Replication Group " + rgRef);
+				HttpResponse  rgResponse = null;
+				ReplicationGroup rg = null;
+				
+				try {
+				
+						// Execute your request and catch response
+						rgResponse = httpClient.execute(rgRequest);		
+	 
+						// Check for HTTP response code: 200 = success
+						if (rgResponse.getStatusLine().getStatusCode() != 200) {
+							logger.error("Http call error: " + rgResponse.getStatusLine().getStatusCode() );
+							throw new DemoException("Failed : HTTP error code : " + rgResponse.getStatusLine().getStatusCode());
+						}
+								 
+						
+						rg = ApacheClientParser.parseReplicationGroup(rgResponse.getEntity().getContent());
+				
+				} catch (Exception ex) {
+					logger.error("Apache http call exception retrieving ReplicationGroup ", ex); // stacktrace
+					throw new DemoException("Apache http call exception retrieving ReplicationGroup", ex);
+				}
+				
+				logger.debug("Returned replication group " + rg.getName());
+				return rg;
+	     }
 
 
 	     public Organization getOrganization(ReferenceType orgref) throws DemoException {
@@ -867,16 +956,66 @@ public class ApacheClient extends VcdClient{
 		    return org;
 	     }
 	     
+	     
+
+	     public List<String> getReplEnabledVdcs(ReferenceType orgref) throws DemoException {
+	    	
+		    List<String> vdcRefList = new ArrayList<String>(); 
+		
+			try {
+				
+				if (!orgref.getType().equals("application/vnd.vmware.vcloud.org+xml")) {
+					throw new DemoException("Cannot retrieve Organization object using ReferenceType of type " + orgref.getType());
+				}
+				if (orgref.getHref() == null || orgref.getHref().length() == 0) {
+					throw new DemoException("Cannot retrieve Organization object using ReferenceType will null Href");
+				}
+					
+				// Create new getRequest with below mentioned URL
+				HttpGet getRequest = new HttpGet(orgref.getHref() + "/enabledForReplicationVdcs");
+	 
+				// Add additional header to getRequest which accepts application/xml data
+				getRequest.addHeader("accept", "application/*+xml;version=9.0");
+	 
+				// Add vcd cloud session id
+				getRequest.addHeader("x-vcloud-authorization", sessionId);
+			     
+				logger.debug("Calling to retrieve list of replication enabled VDCs in Organization " + orgref);
+				
+				// Execute your request and catch response
+				HttpResponse response = httpClient.execute(getRequest);
+	 
+				// Check for HTTP response code: 200 = success
+				
+				if (response.getStatusLine().getStatusCode() == 404) {
+					logger.debug("vCloud Director environment does not have vSphere Availability installed");
+				}
+					else if (response.getStatusLine().getStatusCode() != 200) {
+						logger.error("Failed : HTTP error code : " + response.getStatusLine().getStatusCode());
+					} 
+						else
+						{
+							vdcRefList = ApacheClientParser.parseReplEnabledVdcs(response.getEntity().getContent());
+						}
+				
+	 
+			} catch (Exception e) {
+				logger.error("Apache http call exception ", e); // stacktrace
+				throw new DemoException("Apache http call exception", e);
+			}
+			
+		    return vdcRefList;
+	     }
 
 
-	     public Task performAction(String href) throws DemoException {
+	     public Task performPostAction(String href) throws DemoException {
 	    	
 		    Task task = new Task();
 		
 			try {
 				
 						
-				// Create new getRequest with below mentioned URL
+				// Create new Request with below mentioned URL
 				HttpPost postRequest = new HttpPost(href);
 	 
 				// Add additional header to getRequest which accepts application/xml data
@@ -890,10 +1029,10 @@ public class ApacheClient extends VcdClient{
 				// Execute your request and catch response
 				HttpResponse response = httpClient.execute(postRequest);
 	 
-				// Check for HTTP response code: 200 = success
+				// Check for HTTP response code: 202 = success
 				if (response.getStatusLine().getStatusCode() != 202) {
-					logger.error("Failed : HTTP error code : " + response.getStatusLine().getStatusCode());
-					task.setErrorDescription( "HTTP error code : " + response.getStatusLine().getStatusCode());
+					logger.error("Failed : HTTP Post error code : " + response.getStatusLine().getStatusCode());
+					task.setErrorDescription( "HTTP Post error code : " + response.getStatusLine().getStatusCode());
 				} 
 				else
 				{
@@ -914,8 +1053,62 @@ public class ApacheClient extends VcdClient{
 				
 	 
 			} catch (Exception e) {
-				logger.error("Apache http call exception ", e); // stacktrace
-				throw new DemoException("Apache http call exception", e);
+				logger.error("Apache http post call exception ", e); // stacktrace
+				throw new DemoException("Apache http  post call exception", e);
+			}
+			
+		    return task;
+	     }
+		
+	     
+
+	     public Task performDeleteAction(String href) throws DemoException {
+	    	
+		    Task task = new Task();
+		
+			try {
+				
+						
+				// Create new Request with below mentioned URL
+				HttpDelete deleteRequest = new HttpDelete(href);
+	 
+				// Add additional header to deleteRequest which accepts application/xml data
+				deleteRequest.addHeader("accept", "application/*+xml;version=9.0");
+	 
+				// Add vcd cloud session id
+				deleteRequest.addHeader("x-vcloud-authorization", sessionId);
+			     
+				logger.debug("Calling to perform action on VM " + href);
+				
+				// Execute your request and catch response
+				HttpResponse response = httpClient.execute(deleteRequest);
+	 
+				// Check for HTTP response code: 200 = success
+				if (response.getStatusLine().getStatusCode() != 200) {
+					logger.error("Failed : HTTP Delete error code : " + response.getStatusLine().getStatusCode());
+					task.setErrorDescription( "HTTP Delete error code : " + response.getStatusLine().getStatusCode());
+				} 
+				else
+				{
+				//	org = ApacheClientParser.parseOrganization(response.getEntity().getContent());
+					
+					BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
+				//	String output;
+				//	logger.debug("============Output:============");
+				//	logger.debug("x-vcloud-authorization: " + String.valueOf(sessionId));
+					// Simply iterate through XML response and show on console.
+				//	while ((output = br.readLine()) != null) {
+				//		logger.debug(output);
+				//	}
+					
+					task = ApacheClientParser.parseTask(response.getEntity().getContent());
+					
+				}
+				
+	 
+			} catch (Exception e) {
+				logger.error("Apache http Delete call exception ", e); // stacktrace
+				throw new DemoException("Apache http Delete call exception", e);
 			}
 			
 		    return task;
@@ -956,6 +1149,27 @@ public class ApacheClient extends VcdClient{
 	 
 			    vdc = ApacheClientParser.parseVdc(response.getEntity().getContent());
 				
+			    // Call the vdcs Org to retrieve a list of Replication enabled vdcs.
+			    List<String> replEnabledVdcs = getReplEnabledVdcs(vdc.getOrgRef());
+			    
+			    boolean vdcEnabled = false;
+	            for (String vdcHref : replEnabledVdcs) {
+					if(vdcHref.equals(vdcref.getHref()))
+						vdcEnabled = true;
+				}
+			    
+			    // Note if VDC not enabled for replication, a link for recoveryDetails still exists if vCD extended with DR2C
+			    // But if not enabled then url returns 404
+			    // It also has links for both disableReplication and enableReplication
+
+			    	
+
+			    // if the vdc has replication enabled get the details and add to vdc object
+			    if (vdcEnabled) {
+			       getVdcRecoveryDetails(vdc.getRecoveryRef(), vdc);
+			    }
+			       
+			       // https://10.158.12.128/api/vdc/e76b8f93-ebcd-4fc0-8fd6-3a9500de4911/replications
 				
 	 
 			} catch (Exception e) {
@@ -966,6 +1180,55 @@ public class ApacheClient extends VcdClient{
 			
 		    return vdc;
 	     }
+	     
+
+	     public Vdc getVdcRecoveryDetails(ReferenceType vdcRecoveryRef, Vdc vdc) throws DemoException {
+	    	
+		    
+		
+			try {
+				
+				if (!vdcRecoveryRef.getType().equals("application/vnd.vmware.hcs.vrRecoveryDetails+xml")) {
+					throw new DemoException("Cannot retrieve VDC recovery details using ReferenceType of type " + vdcRecoveryRef.getType());
+				}
+				if (vdcRecoveryRef.getHref() == null || vdcRecoveryRef.getHref().length() == 0) {
+					throw new DemoException("Cannot retrieve VDC recovery details  using ReferenceType with null Href");
+				}
+					
+				// Create new getRequest with below mentioned URL
+				HttpGet getRequest = new HttpGet(vdcRecoveryRef.getHref());
+	 
+				// Add additional header to getRequest which accepts application/xml data
+				getRequest.addHeader("accept", "application/*+xml;version=9.0");
+	 
+				// Add vcd cloud session id
+				getRequest.addHeader("x-vcloud-authorization", sessionId);
+			     
+				logger.debug("Calling to retrieve VDC Recovery Details " + vdcRecoveryRef);
+				
+				// Execute your request and catch response
+				HttpResponse response = httpClient.execute(getRequest);
+	 
+				// Check for HTTP response code: 200 = success
+				if (response.getStatusLine().getStatusCode() != 200) {
+					throw new DemoException("Failed : HTTP error code : " + response.getStatusLine().getStatusCode());
+				}
+	 
+			    ApacheClientParser.parseVdcRecoveryDetails(response.getEntity().getContent(), vdc);
+				
+		
+			  
+				
+	 
+			} catch (Exception e) {
+				logger.error("Apache http call exception ", e); // stacktrace
+				throw new DemoException("Apache http call exception", e);
+			}
+			
+			
+		    return vdc;
+	     }
+	  
 	  
 
 }

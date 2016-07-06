@@ -14,8 +14,6 @@ body {
 
 	font-family: 'Open Sans', sans-serif;   /* adjusting this will impact table rows */
     font-size: 10px; /*adjusting this changes default height of inline elements like span etc may cut off images in span */
-	
-	
 	color: #000000;
     background: #4679B9;
 }
@@ -179,3 +177,29 @@ a:active  { color: #ccc; }      /* active links    */
 
 p.spacer {
 line-height: 200% }
+
+
+	
+table.simple td {
+	border: none;
+}
+
+table.simple th {
+	background-color: #F0F3F5;
+}
+
+table.simple span:nth-of-type(2) {
+   font-weight: 400;
+    padding-right: 5px;
+    float: right;
+}
+
+table.simple td span.title {
+	font-family: 'Open Sans', sans-serif;  
+	font-size: 1.2em; 
+	font-weight: 400;
+	float: left;
+    width: 220px;
+}
+	
+}

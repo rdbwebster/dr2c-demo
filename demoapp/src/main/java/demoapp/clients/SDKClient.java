@@ -55,7 +55,7 @@ public class SDKClient extends VcdClient {
           
           client = new VcloudClient(url, Version.V9_0);
           
-          // Set SDK Cliet log level
+          // Set SDK Client log level
           VcloudClient.setLogLevel(Level.INFO);
           
        
@@ -68,19 +68,19 @@ public class SDKClient extends VcdClient {
           catch (UnauthorizedAccessException ex)
           {
             logger.error("Exception during login  ", ex);
-        	 throw new DemoException(ex);
+        	 throw new DemoException("Unauthorized", ex);
           }
           
 		  catch (VCloudException ex)
 	      {
 			  logger.error("Exception during login  ", ex);
-	        	 throw new DemoException(ex);
+	        	 throw new DemoException( "Invalid Username or Password",ex);   // "Invalid Username or Password"
 	      }
           
     	  catch (Exception ex)
 	      {
     		  logger.error("Exception during login  ", ex);
-	        	 throw new DemoException(ex);
+	        	 throw new DemoException("Unknown Login Error", ex);
 	      }
           
 
@@ -412,6 +412,15 @@ public class SDKClient extends VcdClient {
     			demoVdc.getVappRefs().add(mref);
     			
     		}
+    		
+    		// set org link
+    		ReferenceType ref = vdc.getOrgReference();
+    		demoapp.model.ReferenceType  oref = new demoapp.model.ReferenceType();
+    		oref.setName(ref.getName());
+    		oref.setType(ref.getType());
+    		oref.setHref(ref.getHref());
+			demoVdc.setOrgRef(oref);
+    		
 	    	 
     	} catch (Exception ex) {
     		logger.error("Exception retrieving Vdc ", ex);
@@ -555,6 +564,22 @@ public class SDKClient extends VcdClient {
       
         System.exit(0);
         return null;
+    }
+    
+    /* test replication, not supported in vCD Java API 
+     * 
+     */
+    public demoapp.model.Task  testReplication(String s) {
+    	logger.warn("testReplication not implemented by vCD Java API");
+    	return null;
+    }
+    
+    /* test replication, not supported in vCD Java API 
+     * 
+     */
+    public demoapp.model.Task  removeReplication(String s) {
+    	logger.warn("removeReplication not implemented by vCD Java API");
+    	return null;
     }
 
     

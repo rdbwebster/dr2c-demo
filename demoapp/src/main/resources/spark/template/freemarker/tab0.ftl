@@ -13,45 +13,82 @@
 		   
 		             <p class="spacer">&nbsp;</p>
 		             
-				     <table >
-						       
+				    <table class="simple">
+						       <col style="width:20%">
+						        <col style="width:10%">
+						        <col style="width:30%">
+						          <col style="width:30%">
   
 							         <thead>
+							         <tr>
+							             <th><h2>Capacity</h2></th>
+							             <th></th>
+							             <th><h2>Recovery Details</h2></th>
+							             </tr>
 							         </thead>
 							         
 						             <tbody>
                                            <tr></tr>
+                                            <tr></tr>
 								        <tr>
-										        <td style="border: none;">
+										        <td>
 										           <h3>CPU</h3>
 			                                    </td>
+			                                    <td></td>
+			                                    <td><span class="title">Planned Migration Enabled</span>
+	                                            <span>${navBean.selectedVdc.plannedMigrationEnabled}</span>
+	                                            </td>
+			                                  
 	                                    </tr>
 	                                    <tr>
-			                                    <td style="border: none;">
+			                                    <td>
 			                                     
 			                                      <div id="progressbarcpu"></div>
-			                                      
+
 			                                    </td>
+			                                    <td>
+			                                    </td>
+			                                     <td><span class="title">Fail Over Enabled</span>  
+	                                             <span>${navBean.selectedVdc.failoverEnabled}</span>
+	                                             </td>
 	                                    </tr>
 	                                    <tr></tr>
 	                                    
 	                                    <tr>
-			                                     <td style="border: none;">
+			                                     <td>
 										           <h3>Memory</h3>
 			                                    </td>
+			                                    <td></td>
+			                                         <td><span class="title">Test Fail Over Enabled</span> 
+			                                         <span>${navBean.selectedVdc.testFailoverEnabled}</span>
+			                                         </td>
+	                                   
 	                                    </tr>
 	                                     <tr>
-			                                    <td style="border: none;">
+			                                    <td>
 			                                     
 			                                      <div id="progressbarmem"></div>
 			                                      
 			                                    </td>
+			                                   
+			                            <tr>
+			                               <td>  <p class="spacer">&nbsp;</p> </td>
 	                                    </tr>
-	                                      <tr></tr>
+	                            
+	                                    
+	                                 	
+	                            
+	                                               
+	                                              
+	                                       
+	                                               
 	                                  
 
 							    </tbody>
 					       </table> 
+					       
+					       
+
 					  
 				   </div>    
 			    </li>

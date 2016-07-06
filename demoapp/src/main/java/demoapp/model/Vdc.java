@@ -12,6 +12,21 @@ public class Vdc {
 		href = "";
 		description = "";
 		vappRefs = new ArrayList<ReferenceType>();
+		cpuAllocated = "";
+		cpuUsed = "";
+		cpuUnits = "";
+		ReferenceType recoveryRef = null;
+		
+		memoryAllocated = "";
+		memoryUsed = "";
+		memoryUnits = "";
+		
+		plannedMigrationEnabled = "false";
+		failoverEnabled = "false";
+		testFailoverEnabled = "false";
+		
+		orgRef = null;
+		
 	}
 
 	public String getDescription() {
@@ -34,6 +49,53 @@ public class Vdc {
 	String memoryUsed;
 	String memoryUnits;
 	
+	String plannedMigrationEnabled;
+	String failoverEnabled;
+	String testFailoverEnabled;
+	
+	ReferenceType recoveryRef;
+	ReferenceType orgRef;
+	
+	public ReferenceType getOrgRef() {
+		return orgRef;
+	}
+
+	public void setOrgRef(ReferenceType orgRef) {
+		this.orgRef = orgRef;
+	}
+
+	public ReferenceType getRecoveryRef() {
+		return recoveryRef;
+	}
+
+	public void setRecoveryRef(ReferenceType recoveryRef) {
+		this.recoveryRef = recoveryRef;
+	}
+
+	public String getPlannedMigrationEnabled() {
+		return plannedMigrationEnabled;
+	}
+
+	public void setPlannedMigrationEnabled(String plannedMigrationEnabled) {
+		this.plannedMigrationEnabled = plannedMigrationEnabled;
+	}
+
+	public String getFailoverEnabled() {
+		return failoverEnabled;
+	}
+
+	public void setFailoverEnabled(String failoverEnabled) {
+		this.failoverEnabled = failoverEnabled;
+	}
+
+	public String getTestFailoverEnabled() {
+		return testFailoverEnabled;
+	}
+
+	public void setTestFailoverEnabled(String testFailoverEnabled) {
+		this.testFailoverEnabled = testFailoverEnabled;
+	}
+
 	public String getCpuAllocated() {
 		return cpuAllocated;
 	}
@@ -114,8 +176,10 @@ public class Vdc {
 	public String toString() {
 		return "Vdc [name=" + name + ", href=" + href + ", description=" + description + ", cpuAllocated="
 				+ cpuAllocated + ", cpuUsed=" + cpuUsed + ", cpuUnits=" + cpuUnits + ", memoryAllocated="
-				+ memoryAllocated + ", memoryUsed=" + memoryUsed + ", memoryUnits=" + memoryUnits + ", vappRefs="
-				+ vappRefs + "]";
+				+ memoryAllocated + ", memoryUsed=" + memoryUsed + ", memoryUnits=" + memoryUnits
+				+ ", plannedMigrationEnabled=" + plannedMigrationEnabled + ", failoverEnabled=" + failoverEnabled
+				+ ", testFailoverEnabled=" + testFailoverEnabled + ", recoveryRef=" + recoveryRef + ", orgRef=" + orgRef
+				+ ", vappRefs=" + vappRefs + "]";
 	}
 
 	public Vdc(String name, String href) {

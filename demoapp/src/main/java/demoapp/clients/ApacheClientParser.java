@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.joox.Match;
 import org.slf4j.Logger;
@@ -313,11 +314,9 @@ public class ApacheClientParser {
 				 bis = new BufferedInputStream(istream);
 			
 				// Parse response with JOOX
-				
 				 
 				logger.debug("\nMade Apache http call, parsing result");
 					
-		
 				 Match vdc = $(bis);   // <Vdc>
 				      
 		    	 String name = vdc.attr("name");
@@ -368,6 +367,41 @@ public class ApacheClientParser {
 		                 
 				        });
 		    	 
+		    	 // process interesting Links
+		    	 
+		    	    Match links =  vdc.find("Link"); 
+			         
+		  		    $(links).forEach(link -> {
+		  		    	 	        
+            	        // Get Org vdc refs
+            	        if(link.getAttribute("type").equals("application/vnd.vmware.hcs.vrRecoveryDetails+xml")) {
+            	        	
+            	        	// save the reference
+                    	    ReferenceType recoveryref = new ReferenceType();
+                    	    recoveryref.setName( "recoveryDetails");
+                    	    recoveryref.setHref(link.getAttribute("href"));
+                    	    recoveryref.setType( link.getAttribute("type"));
+                            newVdc.setRecoveryRef(recoveryref);
+                            
+            	        }
+            	        
+                        if(link.getAttribute("type").equals("application/vnd.vmware.vcloud.org+xml")) {
+            	        	
+            	        	// save the reference
+                    	    ReferenceType orgRef = new ReferenceType();
+                    	    orgRef.setName( "orgRef");
+                    	    orgRef.setHref(link.getAttribute("href"));
+                    	    orgRef.setType( link.getAttribute("type"));
+                            newVdc.setOrgRef(orgRef);
+                            
+            	        }
+            	      
+            	        
+                  });
+             
+		     
+	         bis.close();
+		    	 
         } catch (IOException e) {
         	logger.debug("Error Parsing http response");
         	
@@ -384,6 +418,99 @@ public class ApacheClientParser {
 		}
 			     
 	     return newVdc;
+  }
+	  
+  
+
+  // InputStream enables unit testing with flat files containing XML
+  public static List<String> parseReplEnabledVdcs(InputStream istream) throws Exception {
+	   
+	    List<String> vdcs = new ArrayList<String>(); 
+	    BufferedInputStream bis = null;
+        try {
+				// load into BufferedInputSteam so we can reset and read again
+				 bis = new BufferedInputStream(istream);
+			
+				// Parse response with JOOX
+				 
+				logger.debug("\nMade Apache http call, parsing result");
+					
+				 Match refs = $(bis);   // <References>
+				      
+		    	 refs.find("Reference").forEach(ref -> {
+			    		            
+		             if ($(ref).attr("type").equals("application/vnd.vmware.vcloud.vdc+xml")) {
+		            
+				        String href = $(ref).attr("href");           // attribute     
+		             	vdcs.add(href);
+		             }               
+				        });
+	     
+	         bis.close();
+		    	 
+        } catch (IOException e) {
+        	logger.debug("Error Parsing http response");
+        	
+			e.printStackTrace();
+			throw new DemoException("Error parsing http response ", e);
+		} finally {
+			try {
+				if (bis != null)
+					bis.close();
+			} catch (IOException ex) {
+				logger.error("IOException close InputStream.");
+				ex.printStackTrace();
+			}
+		}
+			     
+	     return vdcs;
+  }
+	  
+  
+
+  // InputStream enables unit testing with flat files containing XML
+  public static void parseVdcRecoveryDetails(InputStream istream, Vdc vdc) throws Exception {
+	   
+	    BufferedInputStream bis = null;
+        try {
+				// load into BufferedInputSteam so we can reset and read again
+				 bis = new BufferedInputStream(istream);
+			
+				// Parse response with JOOX
+				
+				 
+				logger.debug("\nMade Apache http call, parsing result");
+					
+				 Match $rd = $(bis).namespace("ns2", "http://www.vmware.com/vr/v6.0");  // <ns2:RecoveryDetails>
+				
+				      		       
+		         String pme =  $rd.find("IsPlannedMigrationEnabled").text();
+		         vdc.setPlannedMigrationEnabled(pme);
+
+		         String foe =  $rd.find("IsFailoverEnabled").text();
+		         vdc.setFailoverEnabled(foe);
+		         
+		         String tfe =  $rd.find("IsTestFailoverEnabled").text();
+		         vdc.setTestFailoverEnabled(tfe);
+             
+	             bis.close();
+		    	 
+        } catch (IOException e) {
+        	logger.debug("Error Parsing http response");
+        	
+			e.printStackTrace();
+			throw new DemoException("Error parsing http response ", e);
+		} finally {
+			try {
+				if (bis != null)
+					bis.close();
+			} catch (IOException ex) {
+				logger.error("IOException close InputStream.");
+				ex.printStackTrace();
+			}
+		}
+			     
+	     return;
   }
 	  
 	
@@ -546,6 +673,10 @@ public class ApacheClientParser {
 		         	rgRefList.add(href);
 		          
 		        });
+			  
+          
+			     
+			     
         } catch (IOException e) {
            	logger.debug("Error Parsing http response");
            	
@@ -582,11 +713,8 @@ public class ApacheClientParser {
 			// Parse response with JOOX
 			
 			logger.debug("\nMade Apache http call, parsing result");
-			
-		
-				
-			 Match $rg = $(bis).namespace("ns2", "http://www.vmware.com/vr/v6.0");  // <ns2:ReplicationGroup>
-			
+						
+			 Match $rg = $(bis).namespace("ns2", "http://www.vmware.com/vr/v6.0");  // <ns2:ReplicationGroup>			
 				
 			 String href = $rg.attr("href");           // attribute
 			 repGroup.setHref(href);
@@ -601,15 +729,72 @@ public class ApacheClientParser {
 		     repGroup.setPlaceholderVappId(String.valueOf($rg.find("PlaceholderVappId").text()));
 		     repGroup.setEventPartitionId(String.valueOf($rg.find("EventPartitionId").text()));
 		     repGroup.setReplicationState(String.valueOf($rg.find("ReplicationState").text()));
+		     if(repGroup.getReplicationState().equals("null")) repGroup.setReplicationState("not applicable");
 		     repGroup.setVrServerInfo(String.valueOf($rg.find("VrServerInfo").find("Uuid").text()));
 		     repGroup.setPaused(String.valueOf($rg.find("Paused").text()));
 		     repGroup.setCurrentRpoViolation(String.valueOf($rg.find("CurrentRpoViolation").text()));
 		     repGroup.setTestRecoveryState(String.valueOf($rg.find("TestRecoveryState").text()));
+		     if(repGroup.getTestRecoveryState().equals("null")) repGroup.setTestRecoveryState("not applicable");
 		     repGroup.setRecoveryState(String.valueOf($rg.find("RecoveryState").text()));
+		     if(repGroup.getRecoveryState().equals("null")) repGroup.setRecoveryState("not applicable");
 		     repGroup.setRecoveryCompletionTime(String.valueOf($rg.find("RecoveryCompletionTime").text()));
 		     repGroup.setTransferStartTime(String.valueOf($rg.find("ReplicationGroupInstance").find("TransferStartTime").text()));
 		     repGroup.setTransferSeconds(String.valueOf($rg.find("ReplicationGroupInstance").find("TransferSeconds").text()));
 		     repGroup.setTransferBytes(String.valueOf($rg.find("ReplicationGroupInstance").find("TransferBytes").text()));
+		     
+		  	 // process Links of interest 
+	    	 
+	    	 Match links =  $rg.find("Link"); 
+		         
+	  		 $(links).forEach(link -> {
+	  		    	 	        
+	     	     // Get failover operation 
+	  			 // Check rel vs type since type not unique in response
+	     	     if(link.getAttribute("rel").equals("operation:failover")) {
+	     	        	
+	     	        	 ReferenceType ref = new ReferenceType();
+	     	        	 ref.setName(link.getAttribute("rel"));
+	                     ref.setHref(link.getAttribute("href"));
+	                     ref.setType( link.getAttribute("type"));
+	                     repGroup.setFailoverOpRef(ref);    
+	     	     }
+	     	     
+		 	        
+	     	     // Get test failover operation 
+	     	     if(link.getAttribute("type").equals("application/vnd.vmware.hcs.testFailoverParams+xml")) {
+	     	        	
+	     	        	 ReferenceType ref = new ReferenceType();
+	     	        	 ref.setName(link.getAttribute("rel"));
+	                     ref.setHref(link.getAttribute("href"));
+	                     ref.setType( link.getAttribute("type"));
+	                     repGroup.setTestFailoverOpRef(ref);    
+	     	     }
+	     	     
+	     	     // Get test remove operation 
+	     	     if(link.getAttribute("type").equals("application/vnd.vmware.hcs.replicationGroup+xml")) {
+	     	        	
+	     	        	 ReferenceType ref = new ReferenceType();
+	     	        	 ref.setName(link.getAttribute("rel"));
+	                     ref.setHref(link.getAttribute("href"));
+	                     ref.setType( link.getAttribute("type"));
+	                     repGroup.setRemoveOpRef(ref);    
+	     	     }
+	     	     
+	     	     // Get planned migration operation
+	     	     // Check rel vs type since type not unique in response
+	     	    if(link.getAttribute("rel").equals("operation:plannedMigration")) {
+     	        	
+    	        	    ReferenceType ref = new ReferenceType();
+    	                ref.setName(link.getAttribute("rel"));
+                        ref.setHref(link.getAttribute("href"));
+                        ref.setType( link.getAttribute("type"));
+                        repGroup.setPlannedMigrationOpRef(ref);    
+    	     }
+     	        
+             });
+	  		 
+	  		 
+		     
 	    } catch (IOException e) {
            	logger.debug("Error Parsing http response");
            	

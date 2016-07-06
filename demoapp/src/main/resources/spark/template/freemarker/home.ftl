@@ -104,7 +104,7 @@
 <div id="container">
 <div id="header">
     
-      <textarea id="messages" rows="1" cols="100" readonly style="margin-left:100px; border: none; overflow:hidden;  resize: none;" > ${messages} </textarea> 
+      <textarea id="messages" rows="1" cols="120" readonly style="margin-left:100px; border: none; overflow:hidden;  resize: none;" > ${messages} </textarea> 
 
   
 </div>
@@ -136,17 +136,15 @@
 						           </ul>
 			    	    <#else>
 	
-	                               <ul class="tabs">
-											    		  	
-									  <#include "tab2.ftl">
-									   				      
-						           </ul>
+	                       
 	
 									<ul class="tabs">
 											  	
 									  <#include "tab3.ftl">
 									   				      
 						           </ul>
+						           
+						             
 			             </#if>		
 			           
 		             

@@ -1,8 +1,8 @@
 
  <li>
-			        <input type="radio" name="tabs" id="tab3"  />
+			        <input type="radio" name="tabs" id="tab3" checked />
 			        
-			        <label for="tab3">Replication Groups</label>
+			        <label for="tab3">Protected Virtual Machines</label>
 			        
 			        <div id="tab-content3" class="tab-content">
 			            
@@ -11,9 +11,27 @@
 			        <ul>
 			        
 			          
+			                 <li  class="v-icon-action-power-on">
+			     
+			                      <button id = "Test" >Test</button>
+			                
+			            </li>
+			            
+			               <li class="v-icon-action-power-off">
+			          
+			                        <button id = "Cleanup" >Cleanup</button>
+			                
+			            </li>
+			            
+			            <li class="v-icon-action-suspend">
+			           
+			                        <button id = "Recover" >Recover</button>
+			                
+			            </li>
+			            
 			            <li  class="v-icon-action-power-on">
-			       <!--                <a id="poweronbutton" href="poweron">Power On</a> --> 
-			                      <button id = "poweron" >Remove Replication</button>
+			   
+			                      <button id = "Remove" >Remove Replication</button>
 			                
 			            </li>
 
@@ -53,6 +71,7 @@
 							        <th>RPO</th>
 							        <th>Replication State</th>
 							        <th>Recovery State</th>
+							        <th>Replication Paused</th>
 							        <th>Test Recovery State</th>
 							      
 							            
@@ -67,10 +86,8 @@
 								        <td>${replbean.rpo}</td>
 								        <td>${replbean.replicationState}</td>
 								        <td>${replbean.recoveryState}</td>
+								        <td>${replbean.paused}</td>
 								        <td>${replbean.testRecoveryState}</td>
-								      
-								      
-								           
 								      </tr>
 								     </#list>
 					   </#if>

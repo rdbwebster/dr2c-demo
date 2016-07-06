@@ -58,6 +58,10 @@ public abstract class VcdClient {
 	
 	abstract public Task resumeVM(String vmHref);
 	
+	abstract public Task testReplication(String vmHref);
+	
+	abstract public Task removeReplication(String vmHref);
+	
     abstract public VMInfo getVMInfo(String vmHref) throws DemoException;
     
     abstract public List<ReplicationGroup> getReplicationGroups(String orgHref) throws DemoException;

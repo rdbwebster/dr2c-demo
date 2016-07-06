@@ -19,6 +19,10 @@ public class ReplicationGroup {
 	String transferStartTime= "";
 	String transferSeconds= "";
 	String transferBytes= "";
+	ReferenceType failoverOpRef= null;
+	ReferenceType testFailoverOpRef= null;
+	ReferenceType removeOpRef= null;
+	ReferenceType plannedMigrationOpRef= null;
 	
 	@Override
 	public int hashCode() {
@@ -144,6 +148,8 @@ public class ReplicationGroup {
 		// TODO Auto-generated constructor stub
 	}
 	
+
+	
 	@Override
 	public String toString() {
 		return "ReplicationGroup [name=" + name + ", href=" + href + ", rpo=" + rpo + ", quiesceGuestEnabled="
@@ -153,7 +159,34 @@ public class ReplicationGroup {
 				+ ", currentRpoViolation=" + currentRpoViolation + ", testRecoveryState=" + testRecoveryState
 				+ ", recoveryState=" + recoveryState + ", recoveryCompletionTime=" + recoveryCompletionTime
 				+ ", transferStartTime=" + transferStartTime + ", transferSeconds=" + transferSeconds
-				+ ", transferBytes=" + transferBytes + "]";
+				+ ", transferBytes=" + transferBytes + ", failoverOpRef=" + failoverOpRef + ", testFailoverOpRef="
+				+ testFailoverOpRef + ", removeOpRef=" + removeOpRef + ", plannedMigrationOpRef="
+				+ plannedMigrationOpRef + "]";
+	}
+	
+	public ReferenceType getPlannedMigrationOpRef() {
+		return plannedMigrationOpRef;
+	}
+	public void setPlannedMigrationOpRef(ReferenceType plannedMigrationOpRef) {
+		this.plannedMigrationOpRef = plannedMigrationOpRef;
+	}
+	public ReferenceType getFailoverOpRef() {
+		return failoverOpRef;
+	}
+	public void setFailoverOpRef(ReferenceType failoverOpRef) {
+		this.failoverOpRef = failoverOpRef;
+	}
+	public ReferenceType getTestFailoverOpRef() {
+		return testFailoverOpRef;
+	}
+	public void setTestFailoverOpRef(ReferenceType testFailoverOpRef) {
+		this.testFailoverOpRef = testFailoverOpRef;
+	}
+	public ReferenceType getRemoveOpRef() {
+		return removeOpRef;
+	}
+	public void setRemoveOpRef(ReferenceType removeOpRef) {
+		this.removeOpRef = removeOpRef;
 	}
 	public String getName() {
 		return name;

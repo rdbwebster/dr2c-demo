@@ -262,6 +262,18 @@ public class App {
         	  
         });
         
+        post("/testreplication", (request, response) -> {
+        	logger.debug("Route /testreplication called");
+        	  return performAction("test", request);
+        	  
+        });
+        
+        post("/removereplication", (request, response) -> {
+        	logger.debug("Route /removereplication called");
+        	  return performAction("remove", request);
+        	  
+        });
+        
 
         get("/getmessages", (request, response) -> {   
         	logger.debug("Route /getmessages called");
@@ -324,20 +336,28 @@ public class App {
             String username  = request.queryParams("username");
             String password  = request.queryParams("password");
             
-            if(vcloudurl != null ) vcloudurl=vcloudurl.trim();
-            if(username != null ) username=username.trim();
-            if(password != null ) password=password.trim();
             
-           // Create Model 
+            // Create Model 
             
             Map<String, Object> model = new HashMap<>();
             model.put("messages", "");  // add initial header messages string
-          
-           
+            
             VcdClient vcdClient=null;
             
             try {
+	            if(vcloudurl != null &&  vcloudurl.trim().length() > 0)
+	               vcloudurl=vcloudurl.trim();
+	            else throw new DemoException("A valid url must be supplied");
+	            
+	            if(username != null  && username.trim().length() > 0 && username.contains("@"))
+	               username=username.trim();
+	            else throw new DemoException("A valid username must be supplied and be in the form  user@organization ");
+	            
+	            if(password != null && password.trim().length() > 0)  
+	               password=password.trim();
+	            else throw new DemoException("A valid password must be supplied");
             	
+            	// Load the type of Client specified in the property file
             	Constructor<VcdClient> ctor = vcdClientClass.getDeclaredConstructor(String.class);
             	vcdClient = ctor.newInstance(vcloudurl);
             	
@@ -346,7 +366,7 @@ public class App {
             } catch (DemoException ex)
             {
             	 logger.warn("Login Error for user " + username);
-            	 model.put("errorMessage", "Invalid Username or Password");
+            	 model.put("errorMessage", ex.getMessage());  
                  model.put("username", username);
                  model.put("password", password);
                  model.put("vcloudurl", vcloudurl);
@@ -517,12 +537,10 @@ public class App {
             NavBean navBean = (NavBean) model.get("navBean");
             
         	// get the client
-            
-      
+              
             logger.debug("vClientMap is "  + String.valueOf(vClientMap));
             logger.debug("username is " + username);
-            VcdClient client = vClientMap.get(username);
-            
+            VcdClient client = vClientMap.get(username);           
             
             // Get the vdc ref from the known list of vdcs in NavBean
             // Get the Vdc object and save it in the NavBean
@@ -623,7 +641,7 @@ public class App {
          // sparkJava bug, avoid calling - request.body() before queryParams or parms will be lost 
          String jsonData = request.queryParams("data");
          
-         logger.debug("App received Resume request with parms " + jsonData);
+         logger.debug("App received request with parms " + jsonData);
          
          
          // TODO: Add iteration for > 1 VM requested
@@ -648,21 +666,29 @@ public class App {
          
          VcdClient client = vClientMap.get(sess.attribute("username"));
          
+         // TODO
+         // Add entry for test action ?
+         // href will be to retrieve replication group, which we should already have? get again?
 	        	 
     	 if(action.equals("poweron"))   task = client.powerOnVM(vmHref);
            else if(action.equals("poweroff"))  task = client.powerOffVM(vmHref);
              else if(action.equals("suspend")) task = client.suspendVM(vmHref);
-              else if(action.equals("resume")) task = client.resumeVM(vmHref);;    
+              else if(action.equals("resume")) task = client.resumeVM(vmHref);
+               else if(action.equals("test")) task = client.testReplication(vmHref);
+                 else if(action.equals("remove")) task = client.removeReplication(vmHref);
+                  else logger.warn("unknown action passed to performAction()");
               	
          if(task.getErrorDescription().length() != 0) {
         	   logger.error("Illegal task action or no task returned by server. vmHref: " + 
                              vmHref+ " Action: " + action);
         	   response = "Error Unable to start task.";
         	   addMessage(model, "Error: Task Not Started on VM " + task.getErrorDescription()); 
+         } 
+         else {
+	         logger.debug("Task Started: " + task.getHref());
+	     	
+	         addMessage(model, "Task Started: " + task.getHref()); 
          }
-         logger.debug("Task Started: " + task.getHref());
-     	
-         addMessage(model, "Task Started: " + task.getHref()); 
 
          response = task.getHref();
          

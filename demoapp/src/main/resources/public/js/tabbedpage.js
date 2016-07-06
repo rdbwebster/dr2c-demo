@@ -84,6 +84,61 @@ $(document).ready(function(){
   });
 
 
+
+$(document).ready(function(){                     
+    $(function(){
+       $("#Test").click(function(e){
+    	
+    	   var postdata = getCheckedRows();
+    	
+    	   
+    //	   registerCallbackSession();
+    	   
+    	   makeAjaxCall("testreplication", postdata);
+    	//   sendMessage(postdata);
+    	   
+     	   
+    	   // change to in progress icon
+    	//   .v-icon-status-UNRESOLVED
+    	   
+    	   
+    	   clearCheckedRows();
+    	   
+    	   updateHeaderMessages("getmessages");
+    	 
+      });
+    });
+  });
+
+
+
+
+
+$(document).ready(function(){                     
+    $(function(){
+       $("#Remove").click(function(e){
+    	
+    	   var postdata = getCheckedRows();
+    	
+    	   
+    //	   registerCallbackSession();
+    	   
+    	   makeAjaxCall("removereplication", postdata);
+    	//   sendMessage(postdata);
+    	   
+     	   
+    	   // change to in progress icon
+    	//   .v-icon-status-UNRESOLVED
+    	   
+    	   
+    	   clearCheckedRows();
+    	   
+    	   updateHeaderMessages("getmessages");
+    	 
+      });
+    });
+  });
+
 $(document).ready(function(){                     
     $(function(){
       
@@ -107,7 +162,7 @@ $(document).ready(function(){
 // .prop("tagName");
 	    		  
 		    	  
-		    	  setLegalMenuOptions();
+	    		  setLegalVmMenuOptions();
 
     	   });
 
@@ -352,7 +407,7 @@ function getUsername() {
  * So function now searches all rows for any checked state, since once one row is checked, others checked must
  * be in the same state, menu options disable checking other types.
  */
-function setLegalMenuOptions() {
+function setLegalVmMenuOptions() {
 
 	   // get the status from any checked row
 	
@@ -362,6 +417,87 @@ function setLegalMenuOptions() {
 	
 	   
 	   if(state == "SUSPENDED") {
+	 
+		   // disable power on
+		   $('#poweron').parent().addClass('darkClass').removeClass('tabmenu');   
+	       
+		   // disable power off
+		   $('#poweroff').parent().addClass('darkClass').removeClass('tabmenu');   
+	    
+		   // disable suspend 
+		   $('#suspend').parent().addClass('darkClass').removeClass('tabmenu');    
+	   
+		   // enable resume 
+		   $('#resume').parent().removeClass('darkClass').addClass('tabmenu');   
+	   
+	   } 
+	   
+	   else if(state == "POWERED_ON") {
+		   
+		   // disable power on
+		   $('#poweron').parent().addClass('darkClass').removeClass('tabmenu');   
+	       
+		   // disable resume 
+		   $('#resume').parent().addClass('darkClass').removeClass('tabmenu');   
+		   
+		   // enable power off 
+		   $('#poweroff').parent().removeClass('darkClass').addClass('tabmenu');   
+		   
+		   // enable supsend 
+		   $('#suspend').parent().removeClass('darkClass').addClass('tabmenu');  
+		   
+	   }
+	   
+			 else if(state == "POWERED_OFF") {
+					   
+					   // disable power off
+					   $('#poweroff').parent().addClass('darkClass').removeClass('tabmenu');   
+				       
+					   // disable suspend 
+					   $('#suspend').parent().addClass('darkClass').removeClass('tabmenu');  
+					   
+					   // disable resume 
+					   $('#resume').parent().addClass('darkClass').removeClass('tabmenu');   
+					   
+					   // enable poweron 
+					   $('#poweron').parent().removeClass('darkClass').addClass('tabmenu');  
+					   
+				   }
+	   
+		          // default disable all
+				 else {   
+				 
+					  // disable power on
+					   $('#poweron').parent().addClass('darkClass').removeClass('tabmenu');   
+					   
+					   // disable power off
+					   $('#poweroff').parent().addClass('darkClass').removeClass('tabmenu');   
+				       
+					   // disable suspend 
+					   $('#suspend').parent().addClass('darkClass').removeClass('tabmenu');  
+					   
+					   // disable resume 
+					   $('#resume').parent().addClass('darkClass').removeClass('tabmenu');   
+				 }
+}
+
+
+/* 
+ * set legal menu options based on rows checked
+ * Function used to trigger on check / uncheck events but when last row unchecked, no state available
+ * So function now searches all rows for any checked state, since once one row is checked, others checked must
+ * be in the same state, menu options disable checking other types.
+ */
+function setLegalReplicationMenuOptions() {
+
+	   // get the status from any checked row
+	
+	   alert ( $( "tr[isselected='true'] > td:eq(4) > div > span:eq(1)").html() );
+ 
+	   var state = $( "tr[isselected='true'] > td:eq(4) > div > span:eq(1)").html()
+	
+	   
+	   if(state == "notStarted") {
 	 
 		   // disable power on
 		   $('#poweron').parent().addClass('darkClass').removeClass('tabmenu');   
